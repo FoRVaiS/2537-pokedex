@@ -1,0 +1,43 @@
+@use "../base/utils";
+
+@mixin small-screen {
+  @media screen and (max-width: utils.$sm) {
+    flex-direction: column;
+  }
+}
+
+.navbar {
+  display: flex;
+
+  justify-content: space-between;
+
+  background-color: hsl(0, 0%, 20%);
+
+  &__list {
+    display: flex;
+
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+
+    @include small-screen;
+  }
+
+  &__item {
+    padding: 16px;
+    color: white;
+
+    &:hover {
+      background-color: white;
+      color: hsl(0, 0%, 20%);
+    }
+  }
+
+  &__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @include small-screen;
+}
