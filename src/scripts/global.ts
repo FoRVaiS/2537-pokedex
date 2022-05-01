@@ -1,9 +1,9 @@
 interface Window {
-  pokedex?: Pokedex;
+  pokedex?: Partial<Pokedex>;
 }
 
 interface Pokedex {
-  fetchPokemonByName?: <T = { [name: string]: unknown }>(name: string) => Promise<T>;
+  fetchPokemonByName: <T = { [name: string]: unknown }>(name: string) => Promise<T>;
 }
 
 (self => {
