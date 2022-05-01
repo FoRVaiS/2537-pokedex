@@ -1,0 +1,26 @@
+@use "../base/utils";
+
+.gallery {
+  display: flex;
+
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  &__img {
+    $img-scale: 90%;
+
+    @media screen and (max-width: utils.$sm) {
+      width: 100%;
+    }
+
+    width: $img-scale;
+    height: $img-scale;
+  }
+
+  &__section {
+    display: flex;
+
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
