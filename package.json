@@ -2,9 +2,9 @@
   "name": "2537a1",
   "scripts": {
     "commit": "git-cz",
-    "build:watch:html": "pug -o ./public ./src/index.pug --pretty --watch",
+    "build:watch:html": "pug -o ./public ./src/*.pug --pretty --watch",
     "build:watch:css": "sass --no-source-map ./src/styles/styles.scss:./public/styles/styles.css --watch",
-    "build:watch:js": "tsc --rootDir src/ --outFile ./public/scripts/scripts.js --watch",
+    "build:watch:js": "tsc --rootDir src/ --outDir ./public/scripts --watch",
     "serve": "browser-sync start --server public --files public -w",
     "clean": "rimraf public/",
     "start": "npm-run-all clean -p build:watch:* serve"
