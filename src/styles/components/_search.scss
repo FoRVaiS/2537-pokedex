@@ -1,0 +1,51 @@
+@use "../base/utils";
+
+$color: hsl(0 0% 85%);
+
+.search {
+  display: flex;
+
+  max-width: 100%;
+  width: max-content;
+
+  @media screen and (min-width: #{utils.$sm + 1}) {
+    margin-inline: auto;
+    margin-top: 32px;
+  }
+
+  @media screen and (max-width: utils.$sm) {
+    flex-direction: column;
+  }
+
+  &__field,
+  &__mode,
+  &__action {
+    padding-block: 16px;
+  }
+
+  &__field {
+    max-width: 100%;
+    width: 64ch;
+    border: 0;
+    padding-inline: 8px;
+    background-color: $color;
+  }
+
+  &__mode {
+    border: 0;
+    padding-inline: 8px;
+    border: 2px solid $color;
+  }
+
+  &__action {
+    cursor: pointer;
+    padding-inline: 16px;
+    border: 2px solid $color;
+    background-color: white;
+
+
+    @media screen and (max-width: utils.$sm) {
+      display: none;
+    }
+  }
+}
