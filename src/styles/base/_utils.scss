@@ -10,3 +10,9 @@ $sm: 480px;
   justify-content: center;
   align-items: center;
 }
+
+.u-center-evenly-spaced {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
