@@ -330,10 +330,12 @@ interface Window {
   pokedex?: Partial<Pokedex>;
 }
 
+type fetchPokemonFn = (name: string) => Promise<Pokemon[]>
+
 interface Pokedex {
-  fetchPokemonByName: (name: string) => Promise<Pokemon>;
-  fetchPokemonByType: (type: string) => Promise<Pokemon[]>;
-  fetchPokemonByAbility: (abilityName: string) => Promise<Pokemon[]>;
+  fetchPokemonByName: fetchPokemonFn;
+  fetchPokemonByType: fetchPokemonFn;
+  fetchPokemonByAbility: fetchPokemonFn
 }
 
 interface Pokemon {

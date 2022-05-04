@@ -5,7 +5,7 @@
         method: "GET",
       });
 
-      return data.json() as Promise<Pokemon>;
+      return [await (data.json() as Promise<Pokemon>)];
     };
 
     self.fetchPokemonByType = async function fetchPokemonByType(type) {
@@ -15,7 +15,7 @@
 
       const pokeTypeData: PokemonType = await pokeTypeResponse.json();
 
-      return Promise.all(pokeTypeData.pokemon.map(({ pokemon }) => fetchPokemonByName(pokemon.name)));
+      return (await Promise.all(pokeTypeData.pokemon.map(({ pokemon }) => fetchPokemonByName(pokemon.name)))).map(([result]) => result);
     };
 
     self.fetchPokemonByAbility = async function fetchPokemonByAbility(abilityName) {
@@ -25,7 +25,7 @@
 
       const pokeAbilityData: PokemonAbility = await pokeAbilityResponse.json();
 
-      return Promise.all(pokeAbilityData.pokemon.map(({ pokemon }) => fetchPokemonByName(pokemon.name)));
+      return (await Promise.all(pokeAbilityData.pokemon.map(({ pokemon }) => fetchPokemonByName(pokemon.name)))).map(([result]) => result);
     };
   })(window.pokedex = window.pokedex || {});
 
@@ -55,7 +55,7 @@
 
   const processSearchQuery = async function processSearchQuery(
     ref: HTMLInputElement,
-    modeOptions: { [index: string]: (query: string) => Promise<Pokemon | Pokemon[]> }
+    modeOptions: { [index: string]: fetchPokemonFn }
   ): Promise<void> {
     clearResultsSection();
 
@@ -66,13 +66,12 @@
       const result = await modeOptions[mode](query);
 
       if (Array.isArray(result)) result.forEach(appendPreviewCard);
-      else appendPreviewCard(result);
     } catch (e) {
       console.error(e);
     }
   };
 
-  const modeOptions: { [index: string]: (name: string) => Promise<Pokemon | Pokemon[]> } = {
+  const modeOptions: { [index: string]: fetchPokemonFn } = {
     "Name": window.pokedex.fetchPokemonByName!,
     "Ability": window.pokedex.fetchPokemonByAbility!,
     "Type": window.pokedex.fetchPokemonByType!,
