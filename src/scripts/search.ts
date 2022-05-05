@@ -1,5 +1,11 @@
 (() => {
   (self => {
+    self.history = [];
+
+    self.addResultToHistory = function addResultToHistory(result) {
+        self.history!.push(result);
+    }
+
     const fetchPokemonByName = self.fetchPokemonByName = async function fetchPokemonByName(name) {
       const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, {
         method: "GET",
@@ -64,6 +70,8 @@
 
     try {
       const result = await modeOptions[mode](query);
+
+      window.pokedex!.addResultToHistory!(result);      
 
       if (Array.isArray(result)) result.forEach(appendPreviewCard);
     } catch (e) {

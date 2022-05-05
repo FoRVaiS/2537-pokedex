@@ -333,6 +333,8 @@ interface Window {
 type fetchPokemonFn = (name: string) => Promise<Pokemon[]>
 
 interface Pokedex {
+  history: Pokemon[][];
+  addResultToHistory: (result: Pokemon[]) => void;
   fetchPokemonByName: fetchPokemonFn;
   fetchPokemonByType: fetchPokemonFn;
   fetchPokemonByAbility: fetchPokemonFn
