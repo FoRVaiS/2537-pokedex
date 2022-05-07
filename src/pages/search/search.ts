@@ -76,6 +76,10 @@
     totalResultsText.textContent = '(' + pokemon.length.toString() + ')';
     root.append(totalResultsText);
 
+    const trashbinIcon = document.createElement('i');
+    trashbinIcon.classList.add('history__remove', 'bi', 'bi-trash');
+    root.append(trashbinIcon);
+
     historyRef.append(root);
   };
 
