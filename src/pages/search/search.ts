@@ -41,10 +41,12 @@
     resultsRef.innerHTML = '';
   }
 
-  const getMode = function getMode(): string {
+  enum enumModeOptions { "Name", "Ability", "Type" }
+
+  const getMode = function getMode(): keyof typeof enumModeOptions {
     const modeSelectorRef: HTMLSelectElement = document.querySelector("section[region='search'] .search__mode")!;
 
-    return modeSelectorRef.options[modeSelectorRef.options.selectedIndex].value;
+    return modeSelectorRef.options[modeSelectorRef.options.selectedIndex].value as keyof typeof enumModeOptions;
   }
 
   const resultsRef = document.querySelector("section[region='results'] > .u-center-evenly-spaced")!;
@@ -58,8 +60,6 @@
 
     if (pokemon.sprites.front_default !== null) resultsRef.append(root);
   }
-
-  enum enumModeOptions { "Name", "Ability", "Type" }
 
   const appendHistoryItem = function appendHistoryItem(pokemon: Pokemon[], mode: keyof typeof enumModeOptions, query: string): void {
     const historyRef = document.querySelector("section[region='history'] > .history")!;
@@ -85,7 +85,7 @@
 
   const processSearchQuery = async function processSearchQuery(
     ref: HTMLInputElement,
-    modeOptions: { [index: string]: fetchPokemonFn }
+    modeOptions: { [index in keyof typeof enumModeOptions]: fetchPokemonFn }
   ): Promise<void> {
     clearResultsSection();
 
@@ -96,7 +96,7 @@
       const result = await modeOptions[mode](query);
 
       window.pokedex!.addResultToHistory!(result);
-      appendHistoryItem(result, (mode as keyof typeof enumModeOptions), query);
+      appendHistoryItem(result, mode, query);
 
       if (Array.isArray(result)) result.forEach(appendPreviewCard);
     } catch (e) {
