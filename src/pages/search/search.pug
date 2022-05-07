@@ -4,7 +4,7 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    link(rel="stylesheet" href="./styles/styles.css")
+    link(rel="stylesheet" href="../../styles/styles.css")
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous")
     title Search
   body
@@ -13,9 +13,9 @@ html(lang="en")
       nav.navbar
         ul.navbar__list
           li.navbar__item
-            a(href="./index.html").navbar__link Home
+            a(href="../index/index.html").navbar__link Home
           li.navbar__item
-            a(href="./search.html").navbar__link Search
+            a(href="../search/search.html").navbar__link Search
       main.u-mt-5
         section(region="search")
           .search
@@ -27,5 +27,5 @@ html(lang="en")
         section(region="results")
           .u-center-evenly-spaced
 
-      script(src="./scripts/global.js")
-      script(src="./scripts/search.js")
+      script(src="../../global.js")
+      script(src="./search.js")
