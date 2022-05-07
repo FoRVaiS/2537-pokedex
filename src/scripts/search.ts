@@ -66,19 +66,15 @@
     const root = document.createElement('div');
     root.classList.add('history__item');
 
-    const lhsRoot = document.createElement('div');
-    root.append(lhsRoot);
-
-    const rhsRoot = document.createElement('div');
-    root.append(rhsRoot);
-
     const queryText = document.createElement('p');
+    queryText.classList.add('history__query');
     queryText.textContent = mode + ': ' + query;
-    lhsRoot.append(queryText);
+    root.append(queryText);
 
     const totalResultsText = document.createElement('p');
+    totalResultsText.classList.add('history__quantity');
     totalResultsText.textContent = '(' + pokemon.length.toString() + ')';
-    rhsRoot.append(totalResultsText);
+    root.append(totalResultsText);
 
     historyRef.append(root);
   };
