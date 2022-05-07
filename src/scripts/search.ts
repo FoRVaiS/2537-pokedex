@@ -59,6 +59,8 @@
     if (pokemon.sprites.front_default !== null) resultsRef.append(root);
   }
 
+  enum enumModeOptions { "Name", "Ability", "Type" }
+
   const processSearchQuery = async function processSearchQuery(
     ref: HTMLInputElement,
     modeOptions: { [index: string]: fetchPokemonFn }
@@ -79,7 +81,7 @@
     }
   };
 
-  const modeOptions: { [index: string]: fetchPokemonFn } = {
+  const modeOptions: { [key in keyof typeof enumModeOptions]: fetchPokemonFn } = {
     "Name": window.pokedex.fetchPokemonByName!,
     "Ability": window.pokedex.fetchPokemonByAbility!,
     "Type": window.pokedex.fetchPokemonByType!,
