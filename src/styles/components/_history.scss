@@ -1,0 +1,20 @@
+.history {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  gap: 4px;
+
+  &__item {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 16px;
+
+    cursor: pointer;
+    border: 2px solid gray;
+    border-radius: 5px;
+  }
+}

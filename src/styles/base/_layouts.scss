@@ -1,0 +1,15 @@
+main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  & > section[region='search'] {
+    grid-column: 2 / span 2;
+  }
+  & > section[region='history'] {
+    grid-column: -2 / -1;
+    grid-row: 0 / -1;
+  }
+  & > section[region='results'] {
+    grid-column: 1 / -2;
+  }
+}

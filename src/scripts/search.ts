@@ -61,6 +61,28 @@
 
   enum enumModeOptions { "Name", "Ability", "Type" }
 
+  const appendHistoryItem = function appendHistoryItem(pokemon: Pokemon[], mode: keyof typeof enumModeOptions, query: string): void {
+    const historyRef = document.querySelector("section[region='history'] > .history")!;
+    const root = document.createElement('div');
+    root.classList.add('history__item');
+
+    const lhsRoot = document.createElement('div');
+    root.append(lhsRoot);
+
+    const rhsRoot = document.createElement('div');
+    root.append(rhsRoot);
+
+    const queryText = document.createElement('p');
+    queryText.textContent = mode + ': ' + query;
+    lhsRoot.append(queryText);
+
+    const totalResultsText = document.createElement('p');
+    totalResultsText.textContent = '(' + pokemon.length.toString() + ')';
+    rhsRoot.append(totalResultsText);
+
+    historyRef.append(root);
+  };
+
   const processSearchQuery = async function processSearchQuery(
     ref: HTMLInputElement,
     modeOptions: { [index: string]: fetchPokemonFn }
@@ -73,7 +95,8 @@
     try {
       const result = await modeOptions[mode](query);
 
-      window.pokedex!.addResultToHistory!(result);      
+      window.pokedex!.addResultToHistory!(result);
+      appendHistoryItem(result, (mode as keyof typeof enumModeOptions), query);
 
       if (Array.isArray(result)) result.forEach(appendPreviewCard);
     } catch (e) {
