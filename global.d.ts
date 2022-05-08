@@ -345,7 +345,8 @@ interface Pokedex {
   addResultToHistory: (entry: HistoryEntry) => void;
   fetchPokemonByName: fetchPokemonFn;
   fetchPokemonByType: fetchPokemonFn;
-  fetchPokemonByAbility: fetchPokemonFn
+  fetchPokemonByAbility: fetchPokemonFn;
+  fetchTotalPokemon: () => Promise<number>;
 }
 
 interface Pokemon {
