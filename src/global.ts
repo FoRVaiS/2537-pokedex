@@ -10,6 +10,17 @@
 
     const idGenerator = generateHistoryId();
 
+    const pokemonRegions: { [key in keyof typeof enumPokemonRegions]: { offset: number, limit: number } } = {
+      "Kanto": { offset: 0, limit: 151 },
+      "Johto": { offset: 151, limit: 100 },
+      "Hoenn": { offset: 251, limit: 135 },
+      "Sinnoh": { offset: 386, limit: 108 },
+      "Unova": { offset: 494, limit: 155 },
+      "Kalos": { offset: 649, limit: 72 },
+      "Alola": { offset: 721, limit: 88 },
+      "Galar": { offset: 809, limit: 89 },
+    }
+
     self.addResultToHistory = function addResultToHistory(result) {
       self.history!.push({ id: idGenerator.next().value, ...result});
     }
@@ -41,6 +52,20 @@
 
       return (await Promise.all(pokeAbilityData.pokemon.map(({ pokemon }) => fetchPokemonByName(pokemon.name)))).map(([result]) => result);
     };
+
+    self.fetchPokemonByRegion = async function fetchPokemonByRegion(region) {
+      const { limit, offset } = pokemonRegions[region as keyof typeof enumPokemonRegions];
+
+      const pokeRegionResponse = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`, {
+        method: 'GET',
+      });
+
+      const pokemon: Pokemon[] = (await Promise.all(((await pokeRegionResponse.json()) as { results: EntityApiReference[] }).results
+        .map(({ name }) => (self.fetchPokemonByName as fetchPokemonFn)(name))))
+        .map(([ pokemon ]) => pokemon);
+
+      return pokemon;
+    }
 
     /** Returns a value of 898 because the number of pokemon return by the API is not true. */
     self.fetchTotalPokemon = async function fetchTotalPokemon(): Promise<number> {

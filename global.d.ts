@@ -334,6 +334,8 @@ type fetchPokemonFn = (id: string | number) => Promise<Pokemon[]>
 
 enum enumModeOptions { "Name", "Ability", "Type" }
 
+enum enumPokemonRegions { "Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar" }
+
 interface HistoryEntry {
   pokemon: Pokemon[];
   mode: keyof typeof enumModeOptions;
@@ -346,6 +348,7 @@ interface Pokedex {
   fetchPokemonByName: fetchPokemonFn;
   fetchPokemonByType: fetchPokemonFn;
   fetchPokemonByAbility: fetchPokemonFn;
+  fetchPokemonByRegion: fetchPokemonFn;
   fetchTotalPokemon: () => Promise<number>;
 }
 
