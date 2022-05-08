@@ -2,8 +2,16 @@
   (self => {
     self.history = [];
 
+    function* generateHistoryId(): IterableIterator<number> {
+      let id = 0;
+
+      while(true) yield id++;
+    };
+
+    const idGenerator = generateHistoryId();
+
     self.addResultToHistory = function addResultToHistory(result) {
-        self.history!.push(result);
+      self.history!.push({ id: idGenerator.next().value, ...result});
     }
 
     const fetchPokemonByName = self.fetchPokemonByName = async function fetchPokemonByName(name) {
@@ -41,8 +49,6 @@
     resultsRef.innerHTML = '';
   }
 
-  enum enumModeOptions { "Name", "Ability", "Type" }
-
   const getMode = function getMode(): keyof typeof enumModeOptions {
     const modeSelectorRef: HTMLSelectElement = document.querySelector("section[region='search'] .search__mode")!;
 
@@ -61,7 +67,14 @@
     if (pokemon.sprites.front_default !== null) resultsRef.append(root);
   }
 
-  const appendHistoryItem = function appendHistoryItem(pokemon: Pokemon[], mode: keyof typeof enumModeOptions, query: string): void {
+  const deleteHistoryItem = function deleteHistoryItem(id: number) {
+    // TODO: Convert history to a linked list so remove elements is more efficent.
+    window.pokedex!.history = window.pokedex!.history!.filter(entry => entry.id !== id);
+
+    renderHistoryList();
+  }
+
+  const appendHistoryItem = function appendHistoryItem(id: number, pokemon: Pokemon[], mode: keyof typeof enumModeOptions, query: string): void {
     const historyRef = document.querySelector("section[region='history'] > .history")!;
     const root = document.createElement('div');
     root.classList.add('history__item');
@@ -78,9 +91,23 @@
 
     const trashbinIcon = document.createElement('i');
     trashbinIcon.classList.add('history__remove', 'bi', 'bi-trash');
+    trashbinIcon.onclick = deleteHistoryItem.bind(null, id);
     root.append(trashbinIcon);
 
     historyRef.append(root);
+  };
+
+
+  const clearHistoryList = function clearHistoryList() {
+    const historyRef = document.querySelector("section[region='history'] > .history")!;
+
+    historyRef.innerHTML = '';
+  };
+
+  const renderHistoryList = function renderHistoryList() {
+    clearHistoryList();
+
+    window.pokedex!.history!.forEach(entry => appendHistoryItem(entry.id, entry.pokemon, entry.mode, entry.query));
   };
 
   const processSearchQuery = async function processSearchQuery(
@@ -95,8 +122,8 @@
     try {
       const result = await modeOptions[mode](query);
 
-      window.pokedex!.addResultToHistory!(result);
-      appendHistoryItem(result, mode, query);
+      window.pokedex!.addResultToHistory!({ pokemon: result, mode, query });
+      renderHistoryList();
 
       if (Array.isArray(result)) result.forEach(appendPreviewCard);
     } catch (e) {
