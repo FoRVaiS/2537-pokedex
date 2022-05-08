@@ -41,6 +41,17 @@
 
       return (await Promise.all(pokeAbilityData.pokemon.map(({ pokemon }) => fetchPokemonByName(pokemon.name)))).map(([result]) => result);
     };
+
+    /** Returns a value of 898 because the number of pokemon return by the API is not true. */
+    self.fetchTotalPokemon = async function fetchTotalPokemon(): Promise<number> {
+      // const response = await fetch(`https://pokeapi.co/api/v2/pokemon`, { method: "GET" });
+
+      // const data: { count: number } = await response.json();
+
+      // return data.count;
+
+      return Promise.resolve(898);
+    }
   })(window.pokedex = window.pokedex || {});
 
 })();
