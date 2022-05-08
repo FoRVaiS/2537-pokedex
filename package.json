@@ -2,8 +2,8 @@
   "name": "2537a1",
   "scripts": {
     "commit": "git-cz",
-    "build:watch:html": "pug -o ./public ./src/*.pug --pretty --watch",
-    "build:watch:css": "sass --no-source-map ./src/styles/styles.scss:./public/styles/styles.css --watch",
+    "build:watch:html": "pug -o ./public ./src --pretty --watch",
+    "build:watch:css": "sass --no-source-map ./src/styles/styles.scss:./public/styles/styles.css ./src/pages:./public/pages --watch",
     "build:watch:js": "tsc --rootDir src/ --outDir ./public --watch",
     "serve": "browser-sync start --server public --files public -w",
     "clean": "rimraf public/",

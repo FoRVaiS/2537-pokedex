@@ -10,7 +10,6 @@ $color: hsl(0 0% 85%);
 
   @media screen and (min-width: #{utils.$sm + 1}) {
     margin-inline: auto;
-    margin-top: 32px;
   }
 
   @media screen and (max-width: utils.$sm) {
