@@ -332,7 +332,9 @@ interface Window {
 
 type fetchPokemonFn = (id: string | number) => Promise<Pokemon[]>
 
-enum enumModeOptions { "Name", "Ability", "Type" }
+enum enumModeOptions { "Name", "Ability", "Type", "Region" }
+
+enum enumPokemonRegions { "Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar" }
 
 interface HistoryEntry {
   pokemon: Pokemon[];
@@ -346,6 +348,7 @@ interface Pokedex {
   fetchPokemonByName: fetchPokemonFn;
   fetchPokemonByType: fetchPokemonFn;
   fetchPokemonByAbility: fetchPokemonFn;
+  fetchPokemonByRegion: fetchPokemonFn;
   fetchTotalPokemon: () => Promise<number>;
 }
 
