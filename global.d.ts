@@ -330,7 +330,7 @@ interface Window {
   pokedex?: Partial<Pokedex>;
 }
 
-type fetchPokemonFn = (name: string) => Promise<Pokemon[]>
+type fetchPokemonFn = (id: string | number) => Promise<Pokemon[]>
 
 enum enumModeOptions { "Name", "Ability", "Type" }
 
