@@ -74,9 +74,16 @@
     renderHistoryList();
   }
 
+  const renderPokemon = function renderPokemon(pokemon: Pokemon[]): void {
+    clearResultsSection();
+
+    pokemon.forEach(appendPreviewCard);
+  }
+
   const appendHistoryItem = function appendHistoryItem(id: number, pokemon: Pokemon[], mode: keyof typeof enumModeOptions, query: string): void {
     const historyRef = document.querySelector("section[region='history'] > .history")!;
     const root = document.createElement('div');
+    root.onclick = renderPokemon.bind(null, pokemon);
     root.classList.add('history__item');
 
     const queryText = document.createElement('p');
@@ -118,8 +125,6 @@
     ref: HTMLInputElement,
     modeOptions: { [index in keyof typeof enumModeOptions]: fetchPokemonFn }
   ): Promise<void> {
-    clearResultsSection();
-
     const mode = getMode();
     const query = ref.value;
 
@@ -129,7 +134,7 @@
       window.pokedex!.addResultToHistory!({ pokemon: result, mode, query });
       renderHistoryList();
 
-      if (Array.isArray(result)) result.forEach(appendPreviewCard);
+      if (Array.isArray(result)) renderPokemon(result);
     } catch (e) {
       console.error(e);
     }
