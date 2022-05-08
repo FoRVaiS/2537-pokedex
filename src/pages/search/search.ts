@@ -97,11 +97,15 @@
     historyRef.append(root);
   };
 
-
   const clearHistoryList = function clearHistoryList() {
     const historyRef = document.querySelector("section[region='history'] > .history")!;
 
     historyRef.innerHTML = '';
+  };
+
+  const resetHistory = function resetHistory() {
+    window.pokedex!.history! = [];
+    clearHistoryList();
   };
 
   const renderHistoryList = function renderHistoryList() {
@@ -154,4 +158,7 @@
   // Invoke processSearchQuery when user presses the execute query button
   const searchActionRef: HTMLButtonElement = document.querySelector("section[region='search'] .search__action")!;
   searchActionRef.onclick = processSearchQuery.bind(null, searchRef, modeOptions);
+
+  const clearListRef: HTMLButtonElement = document.querySelector("section[region='history'] .history-header__clear")!;
+  clearListRef.onclick = resetHistory.bind(null);
 })();

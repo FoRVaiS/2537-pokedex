@@ -24,6 +24,10 @@ html(lang="en")
             input.search__field(type="text" name="search" placeholder="Enter query here...")
             button.search__action.bi.bi-search(type="submit" aria-label="Execute query")
         section(region="history")
+          .history-header
+            p.history-header__title
+              b HISTORY
+            button(type="button").history-header__clear CLEAR
           .history
         section(region="results")
           .u-center-evenly-spaced
