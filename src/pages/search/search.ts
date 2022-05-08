@@ -100,6 +100,7 @@
     "Name": window.pokedex!.fetchPokemonByName!,
     "Ability": window.pokedex!.fetchPokemonByAbility!,
     "Type": window.pokedex!.fetchPokemonByType!,
+    "Region": window.pokedex!.fetchPokemonByRegion!,
   };
 
   // Populate mode selector with with option keys
