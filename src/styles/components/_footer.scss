@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding-bottom: 16px;
+
+  color: white;
+  background-color: hsl(0, 0%, 20%);
+
+  &__links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  &__link {
+    font-size: 48px;
+    color: white;
+  }
+}
