@@ -77,6 +77,13 @@
 
       return Promise.resolve(898);
     }
+
+    self.query = async function query(endpoint, opts?) {
+      const response = await fetch(endpoint, opts);
+      return response.json();
+    };
+
   })(window.pokedex = window.pokedex || {});
+
 
 })();

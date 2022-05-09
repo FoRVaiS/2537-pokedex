@@ -350,6 +350,7 @@ interface Pokedex {
   fetchPokemonByAbility: fetchPokemonFn;
   fetchPokemonByRegion: fetchPokemonFn;
   fetchTotalPokemon: () => Promise<number>;
+  query: (endpoint: string, opts?: Parameters<typeof fetch>[1]) => Promise<unknown>;
 }
 
 interface Pokemon {
