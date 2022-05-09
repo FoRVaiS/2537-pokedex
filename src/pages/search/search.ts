@@ -77,12 +77,20 @@
     window.pokedex!.history!.forEach(entry => appendHistoryItem(entry.id, entry.pokemon, entry.mode, entry.query));
   };
 
+  const validateQueryInput = function validateQueryInput(query: string): boolean {
+    return !!query.match(/^(\d|\w)+$/g);
+  };
+
   const processSearchQuery = async function processSearchQuery(
     ref: HTMLInputElement,
     modeOptions: { [index in keyof typeof enumModeOptions]: fetchPokemonFn }
   ): Promise<void> {
     const mode = getMode();
     const query = ref.value;
+
+    // Form validation
+    if (query.length === 0) return console.warn('An input of an integer or string is required.');
+    if (!validateQueryInput(query)) return console.warn(`"${query}" is not a valid input.`);
 
     try {
       const result = await modeOptions[mode](query);
