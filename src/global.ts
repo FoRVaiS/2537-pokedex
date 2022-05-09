@@ -10,15 +10,15 @@
 
     const idGenerator = generateHistoryId();
 
-    const pokemonRegions: { [key in keyof typeof enumPokemonRegions]: { offset: number, limit: number } } = {
-      "Kanto": { offset: 0, limit: 151 },
-      "Johto": { offset: 151, limit: 100 },
-      "Hoenn": { offset: 251, limit: 135 },
-      "Sinnoh": { offset: 386, limit: 108 },
-      "Unova": { offset: 494, limit: 155 },
-      "Kalos": { offset: 649, limit: 72 },
-      "Alola": { offset: 721, limit: 88 },
-      "Galar": { offset: 809, limit: 89 },
+    const pokemonRegions: { [key in Lowercase<keyof typeof enumPokemonRegions>]: { offset: number, limit: number } } = {
+      "kanto": { offset: 0, limit: 151 },
+      "johto": { offset: 151, limit: 100 },
+      "hoenn": { offset: 251, limit: 135 },
+      "sinnoh": { offset: 386, limit: 108 },
+      "unova": { offset: 494, limit: 155 },
+      "kalos": { offset: 649, limit: 72 },
+      "alola": { offset: 721, limit: 88 },
+      "galar": { offset: 809, limit: 89 },
     }
 
     self.addResultToHistory = function addResultToHistory(result) {
@@ -54,7 +54,7 @@
     };
 
     self.fetchPokemonByRegion = async function fetchPokemonByRegion(region) {
-      const { limit, offset } = pokemonRegions[region as keyof typeof enumPokemonRegions];
+      const { limit, offset } = pokemonRegions[region as Lowercase<keyof typeof enumPokemonRegions>];
 
       const pokeRegionResponse = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`, {
         method: 'GET',

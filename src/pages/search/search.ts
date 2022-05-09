@@ -99,7 +99,7 @@
     modeOptions: { [index in keyof typeof enumModeOptions]: fetchPokemonFn }
   ): Promise<void> {
     const mode = getMode();
-    const query = ref.value;
+    const query = ref.value.toLowerCase();
 
     // Form validation
     if (query.length === 0) return sendAlert('An input of an integer or string is required.');
