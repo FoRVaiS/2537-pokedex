@@ -83,7 +83,7 @@
     const template: HTMLTemplateElement = document.querySelector('#template-alert')!;
     const alertNode = template.content.cloneNode(true);
     (alertNode as HTMLElement).querySelector('.alert__msg')!.textContent = msg;
-    document.querySelector('main')!.prepend(alertNode);
+    document.querySelector('.container')!.prepend(alertNode);
 
     setTimeout(() => {
       document.querySelector('.alert')!.remove();
