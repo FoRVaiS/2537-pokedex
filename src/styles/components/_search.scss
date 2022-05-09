@@ -6,11 +6,6 @@ $color: hsl(0 0% 85%);
   display: flex;
 
   max-width: 100%;
-  width: max-content;
-
-  @media screen and (min-width: #{utils.$sm + 1}) {
-    margin-inline: auto;
-  }
 
   @media screen and (max-width: utils.$sm) {
     flex-direction: column;
@@ -23,8 +18,7 @@ $color: hsl(0 0% 85%);
   }
 
   &__field {
-    max-width: 100%;
-    width: 64ch;
+    flex-grow: 1;
     border: 0;
     padding-inline: 8px;
     background-color: $color;
