@@ -18,6 +18,9 @@ html(lang="en")
           li.navbar__item
             a(href="../search/search.html").navbar__link Search
       main
+        template#template-alert
+          div.alert
+            p.alert__msg
         section(region="search")
           .search
             select.search__mode(aria-label="Search mode")

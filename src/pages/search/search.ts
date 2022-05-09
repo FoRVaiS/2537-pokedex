@@ -78,6 +78,17 @@
     window.pokedex!.history!.forEach(entry => appendHistoryItem(entry.id, entry.pokemon, entry.mode, entry.query));
   };
 
+  const sendAlert = function sendAlert(msg: string): void {
+    const template: HTMLTemplateElement = document.querySelector('#template-alert')!;
+    const alertNode = template.content.cloneNode(true);
+    (alertNode as HTMLElement).querySelector('.alert__msg')!.textContent = msg;
+    document.querySelector('main')!.prepend(alertNode);
+
+    setTimeout(() => {
+      document.querySelector('.alert')!.remove();
+    }, 3e3);
+  };
+
   const validateQueryInput = function validateQueryInput(query: string): boolean {
     return !!query.match(/^(\d|\w)+$/g);
   };
@@ -90,8 +101,8 @@
     const query = ref.value;
 
     // Form validation
-    if (query.length === 0) return console.warn('An input of an integer or string is required.');
-    if (!validateQueryInput(query)) return console.warn(`"${query}" is not a valid input.`);
+    if (query.length === 0) return sendAlert('An input of an integer or string is required.');
+    if (!validateQueryInput(query)) return sendAlert(`"${query}" is not a valid input.`);
 
     try {
       const result = await modeOptions[mode](query);
@@ -101,7 +112,7 @@
 
       if (Array.isArray(result)) renderPokemon(result);
     } catch (e) {
-      console.error(e);
+      sendAlert(`Could not find the ${mode.toLowerCase()} '${query}'.`);
     }
   };
 
