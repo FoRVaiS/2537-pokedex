@@ -1,0 +1,34 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="../../styles/styles.css")
+    link(rel="stylesheet" href="./profile.css")
+    title Profile
+  body
+    .container
+      h1.u-center--text Pokedex
+      nav.navbar
+        ul.navbar__list
+          li.navbar__item
+            a(href="../index/index.html").navbar__link Home
+          li.navbar__item
+            a(href="../search/search.html").navbar__link Search
+      main
+        div.portrait
+          img.portrait__img
+        section.info(region="info")
+          h1.pokemon__name
+          .info__header
+          .info__attributes
+          .info__body
+            .info__elements
+            .info__abilities
+            .info__strength
+            .info__weakness
+            .info__stats
+
+    script(src="../../global.js")
+    script(src="./profile.js")
