@@ -14,11 +14,12 @@
     for (let j = 0; j < 3; j++) {
       const index = i * 3 + j;
 
-      const [{ sprites }] = pokemon[index];
+      const [{ sprites, id }] = pokemon[index];
 
       const content = document.createElement('img');
       content.classList.add('gallery__content');
       content.src = sprites.other["official-artwork"].front_default;
+      content.onclick = () => window.location.href = `/pages/profile/profile.html?id=${id}`;
       section.append(content);
     }
 

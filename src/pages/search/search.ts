@@ -18,6 +18,7 @@
 
     const img: HTMLImageElement = document.createElement('img');
     img.src = pokemon.sprites.front_default;
+    img.onclick = () => window.location.href = `/pages/profile/profile.html?id=${pokemon.id}`;
     root.append(img);
 
     if (pokemon.sprites.front_default !== null) resultsRef.append(root);
