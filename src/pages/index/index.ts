@@ -20,6 +20,7 @@
       content.classList.add('gallery__content');
       content.src = sprites.other["official-artwork"].front_default;
       content.onclick = () => window.location.href = `/pages/profile/profile.html?id=${id}`;
+      content.style.cursor = 'pointer';
       section.append(content);
     }
 
