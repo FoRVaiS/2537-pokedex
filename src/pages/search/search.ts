@@ -17,6 +17,7 @@
     const root: HTMLSpanElement = document.createElement('span');
 
     const img: HTMLImageElement = document.createElement('img');
+    img.style.cursor = 'pointer';
     img.src = pokemon.sprites.front_default;
     img.onclick = () => window.location.href = `/pages/profile/profile.html?id=${pokemon.id}`;
     root.append(img);
