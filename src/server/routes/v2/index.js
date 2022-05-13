@@ -6,6 +6,7 @@ const createV2Router = (ctx) => {
   const router = Router();
 
   router.get('/pokemon/:id', pokemonController.fetchPokemon);
+  router.get('/pokemon', pokemonController.fetchPokemon);
 
   return router;
 }

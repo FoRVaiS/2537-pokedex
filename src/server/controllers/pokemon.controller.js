@@ -6,21 +6,27 @@ const { isAlphabeticalString } = require("../../utils/isAlphabeticalString");
 const PokemonNotFoundErrorPayload = {
   success: false,
   data: {
-      msg: 'Failed to find pokemon because it either does not exist or an internal server error has occurred.',
+    msg: 'Failed to find pokemon because it either does not exist or an internal server error has occurred.',
   }
 }
 
+const InvalidIdErrorPayload = {
+  success: false,
+  data: {
+    msg: 'The :id parameter must only contain numbers or only contain letters.',
+  },
+};
+
 const fetchPokemon = async (req, res) => {
   const { id } = req.params;
+  const { limit = 20, offset = 0 } = req.query;
 
-  if (isNumericalString(id)) await fetchPokemonById(id, req, res);
-  else if (isAlphabeticalString(id)) await fetchPokemonByName(id, req, res);
-  else return res.status(400).json({
-    success: false,
-    data: {
-      msg: 'The :id parameter must only contain numbers or only contain letters.',
-    },
-  });
+  if (!id) return fetchAllPokemon(offset, limit, req, res)
+
+  if (isNumericalString(id)) return fetchPokemonById(id, req, res);
+  else if (isAlphabeticalString(id)) return fetchPokemonByName(id, req, res);
+
+  res.status(400).json(InvalidIdErrorPayload);
 };
 
 const fetchPokemonById = async (id, req, res) => {
@@ -45,4 +51,15 @@ const fetchPokemonByName = async (name, req, res) => {
   });
 };
 
-module.exports = { fetchPokemon, fetchPokemonById, fetchPokemonByName };
+const fetchAllPokemon = async (offset, limit, req, res) => {
+  const pokemon = await PokemonModel.find({}, { _id: 0, __v: 0 }).limit(limit).skip(offset);
+
+  if (!pokemon) return res.status(500).json(PokemonNotFoundErrorPayload);
+
+  return res.status(200).json({
+    success: true,
+    data: pokemon,
+  });
+};
+
+module.exports = { fetchPokemon, fetchPokemonById, fetchPokemonByName, fetchAllPokemon };
