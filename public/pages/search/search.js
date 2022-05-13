@@ -14,6 +14,8 @@
     const resultsRef = document.querySelector("section[region='results'] > .u-center-evenly-spaced");
 
     const appendPreviewCard = function createPreviewCard(pokemon) {
+        if (!pokemon.sprites) return;
+
         const root = document.createElement('span');
         
         const img = document.createElement('img');
