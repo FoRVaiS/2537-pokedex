@@ -10,7 +10,7 @@ const morgan = require('morgan');
 
 const { createV2Router } = require('./routes/v2');
 
-const viewRoot = path.join(__dirname, '..', 'public');
+const viewRoot = path.join(__dirname, '..', '..', 'public');
 
 const createExpressInstance = async () => {
   const app = express();
