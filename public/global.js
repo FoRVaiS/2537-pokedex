@@ -27,31 +27,34 @@
         };
 
         const fetchPokemonByName = self.fetchPokemonByName = async function fetchPokemonByName(id) {
-            const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
+            const pokeNameResponse = await fetch(`/api/v2/pokemon/${id}`, {
                 method: "GET",
             });
-            return [await data.json()];
+
+            const { data } = await pokeNameResponse.json();
+
+            return [data];
         };
 
         self.fetchPokemonByType = async function fetchPokemonByType(id) {
-            const pokeTypeResponse = await fetch(`https://pokeapi.co/api/v2/type/${id}`, {
+            const pokeTypeResponse = await fetch(`/api/v2/type/${id}`, {
                 method: 'GET',
             });
-            const pokeTypeData = await pokeTypeResponse.json();
+            const { data: pokeTypeData } = await pokeTypeResponse.json();
             return (await Promise.all(pokeTypeData.pokemon.map(({ pokemon }) => fetchPokemonByName(pokemon.name)))).map(([result]) => result);
         };
 
         self.fetchPokemonByAbility = async function fetchPokemonByAbility(id) {
-            const pokeAbilityResponse = await fetch(`https://pokeapi.co/api/v2/ability/${id}`, {
+            const pokeAbilityResponse = await fetch(`/api/v2/ability/${id}`, {
                 method: 'GET',
             });
-            const pokeAbilityData = await pokeAbilityResponse.json();
+            const { data: pokeAbilityData } = await pokeAbilityResponse.json();
             return (await Promise.all(pokeAbilityData.pokemon.map(({ pokemon }) => fetchPokemonByName(pokemon.name)))).map(([result]) => result);
         };
 
         self.fetchPokemonByRegion = async function fetchPokemonByRegion(region) {
             const { limit, offset } = pokemonRegions[region];
-            const pokeRegionResponse = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`, {
+            const pokeRegionResponse = await fetch(`/api/v2/pokemon?limit=${limit}&offset=${offset}`, {
                 method: 'GET',
             });
 
@@ -63,7 +66,7 @@
 
         /** Returns a value of 898 because the number of pokemon return by the API is not true. */
         self.fetchTotalPokemon = async function fetchTotalPokemon() {
-            // const response = await fetch(`https://pokeapi.co/api/v2/pokemon`, { method: "GET" });
+            // const response = await fetch(`/api/v2/pokemon`, { method: "GET" });
             // const data: { count: number } = await response.json();
             // return data.count;
             return Promise.resolve(898);
