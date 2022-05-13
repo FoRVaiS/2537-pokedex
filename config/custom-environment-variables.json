@@ -2,6 +2,6 @@
   "address": "ADDRESS",
   "port": "PORT",
   "mongo": {
-    "connectionString": "MONGO_CONNECTION_STRING",
+    "connectionString": "MONGO_CONNECTION_STRING"
   }
 }
