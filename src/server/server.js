@@ -34,6 +34,18 @@ const createExpressInstance = async () => {
 
     app.use('/api/v2/', createV2Router({ viewRoot }));
 
+    app.get('/', (req, res) => {
+      res.sendFile(path.join(viewRoot, 'pages/index/index.html'));
+    });
+
+    app.get('/search', (req, res) => {
+      res.sendFile(path.join(viewRoot, 'pages/search/search.html'));
+    });
+
+    app.get('/profile', (req, res) => {
+      res.sendFile(path.join(viewRoot, 'pages/profile/profile.html'));
+    });
+
     return app;
   } catch (e) {
     console.error(e);
