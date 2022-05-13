@@ -21,6 +21,13 @@ const createExpressInstance = async () => {
     console.log('Successfully connected to database');
 
     app.use(helmet());
+    app.use(helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'", 'pokeapi.co'],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        imgSrc: ['raw.githubusercontent.com']
+      },
+    }));
     app.use(morgan('combined'));
 
     app.use(express.static(viewRoot));
