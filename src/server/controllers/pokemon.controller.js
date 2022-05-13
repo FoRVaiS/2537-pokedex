@@ -30,7 +30,7 @@ const fetchPokemon = async (req, res) => {
 };
 
 const fetchPokemonById = async (id, req, res) => {
-  const [pokemon] = await PokemonModel.find({ id }, { _id: 9, __v: 0 });
+  const [pokemon] = await PokemonModel.find({ id }, { _id: 0, __v: 0 });
 
   if (!pokemon) return res.status(500).json(PokemonNotFoundErrorPayload);
 

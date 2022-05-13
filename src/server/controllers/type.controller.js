@@ -27,7 +27,7 @@ const fetchType = async (req, res) => {
 };
 
 const fetchTypeById = async (id, req, res) => {
-  const [type] = await TypeModel.find({ id }, { _id: 9, __v: 0 });
+  const [type] = await TypeModel.find({ id }, { _id: 0, __v: 0 });
 
   if (!type) return res.status(500).json(TypeNotFoundErrorPayload);
 
