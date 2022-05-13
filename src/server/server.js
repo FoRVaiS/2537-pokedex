@@ -10,7 +10,7 @@ const morgan = require('morgan');
 
 const { createV2Router } = require('./routes/v2');
 
-const viewRoot = path.join(__dirname, '..', 'public');
+const viewRoot = path.join(__dirname, '..', '..', 'public');
 
 const createExpressInstance = async () => {
   const app = express();
@@ -21,11 +21,30 @@ const createExpressInstance = async () => {
     console.log('Successfully connected to database');
 
     app.use(helmet());
+    app.use(helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'", 'pokeapi.co'],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        imgSrc: ['raw.githubusercontent.com']
+      },
+    }));
     app.use(morgan('combined'));
 
     app.use(express.static(viewRoot));
 
     app.use('/api/v2/', createV2Router({ viewRoot }));
+
+    app.get('/', (req, res) => {
+      res.sendFile(path.join(viewRoot, 'pages/index/index.html'));
+    });
+
+    app.get('/search', (req, res) => {
+      res.sendFile(path.join(viewRoot, 'pages/search/search.html'));
+    });
+
+    app.get('/profile', (req, res) => {
+      res.sendFile(path.join(viewRoot, 'pages/profile/profile.html'));
+    });
 
     return app;
   } catch (e) {
