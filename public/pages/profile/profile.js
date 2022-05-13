@@ -29,7 +29,10 @@
     const { fetchPokemonByName, query } = window.pokedex;
     const pokemonId = (new URL(window.location.href)).searchParams.get('id');
     const [pokemon] = await fetchPokemonByName(pokemonId);
-    document.querySelector('.portrait__img').src = pokemon.sprites.other["official-artwork"].front_default;
+
+    const portraitImgRef = document.querySelector('.portrait__img');
+    portraitImgRef.src = pokemon.sprites.other["official-artwork"].front_default;
+    portraitImgRef.crossOrigin = 'cross-origin';
     appendStatTicker(pokemon.stats);
 
     // Pokemon Name

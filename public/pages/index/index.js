@@ -17,8 +17,9 @@
             const content = document.createElement('img');
             content.classList.add('gallery__content');
             content.src = sprites.other["official-artwork"].front_default;
-            content.onclick = () => window.location.href = `/pages/profile/profile.html?id=${id}`;
+            content.onclick = () => window.location.href = `/profile?id=${id}`;
             content.style.cursor = 'pointer';
+            content.crossOrigin = 'cross-origin';
             section.append(content);
         }
 
