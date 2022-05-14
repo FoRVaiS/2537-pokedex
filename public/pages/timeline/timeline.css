@@ -1,0 +1,29 @@
+main {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  margin-inline: auto;
+  margin-top: 16px;
+  gap: 16px;
+}
+
+.event-card {
+  display: flex;
+
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 250px;
+
+  padding: 16px;
+
+  background-color: hsl(0 0% 80% / 80%);
+  border: 1px solid hsl(0 0% 70%);
+  border-radius: 5px;
+
+  height: fit-content;
+}
+.event-card__title {
+  text-align: center;
+}
