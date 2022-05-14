@@ -12,6 +12,7 @@ const createV2Router = (ctx) => {
   router.get('/pokemon', pokemonController.fetchPokemon);
   router.get('/type/:id', typeController.fetchType);
   router.get('/ability/:id', abilityController.fetchAbility);
+  router.get('/timeline/event/:name', timelineController.getEvents);
   router.post('/timeline/capture', timelineController.captureEvent);
 
   return router;
