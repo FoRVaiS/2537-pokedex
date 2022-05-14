@@ -51,7 +51,7 @@ const fetchEvent = async (req, res) => {
     ? { name, data: req.query }
     : { name };
 
-  const [event] = await EventModel.find(findQuery, { _id: 0, __v: 0 });
+  const event = await EventModel.find(findQuery, { _id: 0, __v: 0 });
 
   res.status(200).json({
     success: true,
