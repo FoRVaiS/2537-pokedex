@@ -28,4 +28,26 @@ const incrementEventCount = async eventName => {
   }
 };
 
-module.exports = { captureEvent, incrementEventCount };
+const fetchEvents = async (req, res) => {
+  const data = await EventModel.find({}, { _id: 0, __v: 0 });
+
+  res.status(200).json({
+    success: true,
+    data: {
+      results: data
+    },
+  });
+};
+
+const fetchEvent = async (req, res) => {
+  const { name } = req.params;
+
+  const [data] = await EventModel.find({ name }, { _id: 0, __v: 0 });
+
+  res.status(200).json({
+    success: true,
+    data,
+  });
+}
+
+module.exports = { captureEvent, incrementEventCount, fetchEvents, fetchEvent };
