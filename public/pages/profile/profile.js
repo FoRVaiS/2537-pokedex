@@ -91,4 +91,18 @@
         elementRef.append(elementNameRef);
         return elementRef;
     }));
+
+    // Record User Visit
+    fetch('/api/v2/timeline/capture', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: 'view-profile',
+            data: {
+                profileId: pokemon.id,
+            },
+        }),
+    });
 })();

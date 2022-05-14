@@ -31,6 +31,7 @@ const createExpressInstance = async () => {
     app.use(morgan('combined'));
 
     app.use(express.static(viewRoot));
+    app.use(express.json());
 
     app.use('/api/v2/', createV2Router({ viewRoot }));
 
@@ -44,6 +45,10 @@ const createExpressInstance = async () => {
 
     app.get('/profile', (req, res) => {
       res.sendFile(path.join(viewRoot, 'pages/profile/profile.html'));
+    });
+
+    app.get('/timeline', (req, res) => {
+      res.sendFile(path.join(viewRoot, 'pages/timeline/timeline.html'));
     });
 
     return app;
