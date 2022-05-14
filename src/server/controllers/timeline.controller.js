@@ -16,14 +16,15 @@ const incrementEventCount = async eventName => {
   if (!data) {
     await EventModel.create({
       name: eventName,
-      type: 'counter',
       count: 1,
+      lastUpdated: (new Date()).getTime(),
     });
   } else {
     await EventModel.updateOne({
       name: eventName,
     }, {
       $inc: { count: 1 },
+      $set: { lastUpdated: (new Date()).getTime() },
     });
   }
 };
