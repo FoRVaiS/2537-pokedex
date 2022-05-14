@@ -45,7 +45,11 @@ const fetchEvents = async (req, res) => {
 const fetchEvent = async (req, res) => {
   const { name } = req.params;
 
-  const [event] = await EventModel.find({ name, data: req.query }, { _id: 0, __v: 0 });
+  const findQuery = Object.keys(req.query).length
+    ? { name, data: req.query }
+    : { name };
+
+  const [event] = await EventModel.find(findQuery, { _id: 0, __v: 0 });
 
   res.status(200).json({
     success: true,
