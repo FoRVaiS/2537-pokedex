@@ -38,6 +38,28 @@
     description2.textContent = `${capitalize(pokemon.name)} was last visited was on ${calendarDate} at ${time}`;
     body.append(description2);
 
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Remove Event';
+    deleteBtn.onclick = async e => {
+      e.preventDefault();
+
+      await fetch('/api/v2/timeline/remove', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: 'view-profile',
+            data: {
+                profileId: pokemon.id,
+            },
+        }),
+      });
+
+      card.remove();
+    };
+    card.append(deleteBtn);
+
     return card;
   };
 

@@ -59,4 +59,15 @@ const fetchEvent = async (req, res) => {
   });
 }
 
-module.exports = { captureEvent, incrementEventCount, fetchEvents, fetchEvent };
+const deleteEvent = async (req, res) => {
+  const { name, data } = req.body;
+
+  await EventModel.deleteOne({ name, data: Object.fromEntries(Object.entries(data).map(([key, value]) => ([key, value.toString()]))) });
+
+  res.status(200).json({
+    success: true,
+    data: null,
+  });
+}
+
+module.exports = { captureEvent, incrementEventCount, fetchEvents, fetchEvent, deleteEvent };
