@@ -5,7 +5,9 @@ const { EventModel } = require("../models/event.model");
 const captureEvent = async (req, res) => {
   const { name, data } = req.body;
 
-  await incrementEventCount(name, data);
+  // Force all values to be strings so they can be queried by req.query later on.
+  // Clients will be returned the incorrect value types but they should type check anyways.
+  await incrementEventCount(name, Object.fromEntries(Object.entries(data).map(([key, value]) => ([key, value.toString()]))));
 
   res.status(200).json({ success: true, data: req.body });
 };
@@ -18,9 +20,7 @@ const incrementEventCount = async (eventName, data) => {
       name: eventName,
       count: 1,
       lastUpdated: (new Date()).getTime(),
-      // Force all values to be strings so they can be queried by req.query later on.
-      // Clients will be returned the incorrect value types but they should type check anyways.
-      data: Object.fromEntries(Object.entries(data).map(([key, value]) => ([key, value.toString()]))),
+      data,
     });
   } else {
     await EventModel.updateOne({
