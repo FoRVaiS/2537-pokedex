@@ -18,7 +18,9 @@ const incrementEventCount = async (eventName, data) => {
       name: eventName,
       count: 1,
       lastUpdated: (new Date()).getTime(),
-      data,
+      // Force all values to be strings so they can be queried by req.query later on.
+      // Clients will be returned the incorrect value types but they should type check anyways.
+      data: Object.fromEntries(Object.entries(data).map(([key, value]) => ([key, value.toString()]))),
     });
   } else {
     await EventModel.updateOne({
