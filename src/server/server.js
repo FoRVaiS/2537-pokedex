@@ -31,6 +31,7 @@ const createExpressInstance = async () => {
     app.use(morgan('combined'));
 
     app.use(express.static(viewRoot));
+    app.use(express.json());
 
     app.use('/api/v2/', createV2Router({ viewRoot }));
 
