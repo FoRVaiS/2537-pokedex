@@ -15,6 +15,7 @@ const createV2Router = (ctx) => {
   router.get('/timeline/event', timelineController.fetchEvents);
   router.get('/timeline/event/:name', timelineController.fetchEvent);
   router.post('/timeline/capture', timelineController.captureEvent);
+  router.post('/timeline/remove', timelineController.deleteEvent);
 
   return router;
 }
