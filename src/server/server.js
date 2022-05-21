@@ -34,7 +34,10 @@ const createExpressInstance = async () => {
     app.use(express.static(viewRoot));
     app.use(express.json());
 
-    const ctx = { viewRoot };
+    app.set('view engine', 'ejs');
+    app.set('views', viewRoot);
+
+    const ctx = { };
 
     app.use('/api/v2/', createV2Router(ctx));
     app.use('/', createViewRouter(ctx));
