@@ -13,6 +13,7 @@
     "@forvais/eslint-config-node": "^1.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.16.0",
+    "eslint-plugin-node": "^11.1.0",
     "nodemon": "^2.0.16"
   },
   "scripts": {
