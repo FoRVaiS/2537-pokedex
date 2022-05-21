@@ -8,7 +8,8 @@ const config = require('config');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
-const { createV2Router } = require('./routes/v2');
+const { createV2Router } = require('./routes/v2/api');
+const { createViewRouter } = require('./routes/views');
 
 const viewRoot = path.join(__dirname, '..', '..', 'public');
 
@@ -33,23 +34,10 @@ const createExpressInstance = async () => {
     app.use(express.static(viewRoot));
     app.use(express.json());
 
-    app.use('/api/v2/', createV2Router({ viewRoot }));
+    const ctx = { viewRoot };
 
-    app.get('/', (req, res) => {
-      res.sendFile(path.join(viewRoot, 'pages/index/index.html'));
-    });
-
-    app.get('/search', (req, res) => {
-      res.sendFile(path.join(viewRoot, 'pages/search/search.html'));
-    });
-
-    app.get('/profile', (req, res) => {
-      res.sendFile(path.join(viewRoot, 'pages/profile/profile.html'));
-    });
-
-    app.get('/timeline', (req, res) => {
-      res.sendFile(path.join(viewRoot, 'pages/timeline/timeline.html'));
-    });
+    app.use('/api/v2/', createV2Router(ctx));
+    app.use('/', createViewRouter(ctx));
 
     return app;
   } catch (e) {
