@@ -5,7 +5,7 @@ const typeController = require('../../controllers/type.controller');
 const abilityController = require('../../controllers/ability.controller');
 const timelineController = require('../../controllers/timeline.controller');
 
-const createV2Router = (ctx) => {
+const createV2Router = () => {
   const router = Router();
 
   router.get('/pokemon/:id', pokemonController.fetchPokemon);
@@ -18,6 +18,6 @@ const createV2Router = (ctx) => {
   router.post('/timeline/remove', timelineController.deleteEvent);
 
   return router;
-}
+};
 
 module.exports = { createV2Router };

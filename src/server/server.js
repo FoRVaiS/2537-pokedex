@@ -26,7 +26,7 @@ const createExpressInstance = async () => {
       directives: {
         defaultSrc: ["'self'", 'pokeapi.co'],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-        imgSrc: ['raw.githubusercontent.com']
+        imgSrc: ['raw.githubusercontent.com'],
       },
     }));
     app.use(morgan('combined'));
@@ -42,6 +42,8 @@ const createExpressInstance = async () => {
     return app;
   } catch (e) {
     console.error(e);
+    
+    return null;
   }
 };
 

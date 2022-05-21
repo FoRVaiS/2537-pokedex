@@ -9,11 +9,18 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@forvais/eslint-config-base": "^1.0.0",
+    "@forvais/eslint-config-node": "^1.0.0",
     "cross-env": "^7.0.3",
+    "eslint": "^8.16.0",
+    "eslint-plugin-node": "^11.1.0",
     "nodemon": "^2.0.16"
   },
   "scripts": {
     "start": "node .",
     "start:dev": "cross-env NODE_ENV=development nodemon ."
+  },
+  "engines": {
+    "node": ">=14"
   }
 }

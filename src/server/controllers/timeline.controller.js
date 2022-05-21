@@ -1,16 +1,6 @@
-const { EventModel } = require("../models/event.model");
+const { EventModel } = require('../models/event.model');
 
 // TODO: Perform error handling
-
-const captureEvent = async (req, res) => {
-  const { name, data } = req.body;
-
-  // Force all values to be strings so they can be queried by req.query later on.
-  // Clients will be returned the incorrect value types but they should type check anyways.
-  await incrementEventCount(name, Object.fromEntries(Object.entries(data).map(([key, value]) => ([key, value.toString()]))));
-
-  res.status(200).json({ success: true, data: req.body });
-};
 
 const incrementEventCount = async (eventName, data) => {
   const [event] = await EventModel.find({ name: eventName, data });
@@ -25,12 +15,22 @@ const incrementEventCount = async (eventName, data) => {
   } else {
     await EventModel.updateOne({
       name: eventName,
-      data
+      data,
     }, {
       $inc: { count: 1 },
       $set: { lastUpdated: (new Date()).getTime() },
     });
   }
+};
+
+const captureEvent = async (req, res) => {
+  const { name, data } = req.body;
+
+  // Force all values to be strings so they can be queried by req.query later on.
+  // Clients will be returned the incorrect value types but they should type check anyways.
+  await incrementEventCount(name, Object.fromEntries(Object.entries(data).map(([key, value]) => ([key, value.toString()]))));
+
+  res.status(200).json({ success: true, data: req.body });
 };
 
 const fetchEvents = async (req, res) => {
@@ -39,7 +39,7 @@ const fetchEvents = async (req, res) => {
   res.status(200).json({
     success: true,
     data: {
-      results: data
+      results: data,
     },
   });
 };
@@ -57,7 +57,7 @@ const fetchEvent = async (req, res) => {
     success: true,
     data: event,
   });
-}
+};
 
 const deleteEvent = async (req, res) => {
   const { name, data } = req.body;
@@ -68,6 +68,6 @@ const deleteEvent = async (req, res) => {
     success: true,
     data: null,
   });
-}
+};
 
 module.exports = { captureEvent, incrementEventCount, fetchEvents, fetchEvent, deleteEvent };
