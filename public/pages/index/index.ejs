@@ -10,24 +10,14 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="u-center--text">Pokedex</h1>
-      <nav class="navbar">
-        <ul class="navbar__list">
-          <li class="navbar__item"><a class="navbar__link" href="/">Home</a></li>
-          <li class="navbar__item"><a class="navbar__link" href="/search">Search</a></li>
-          <li class="navbar__item"><a class="navbar__link" href="/timeline">Timeline</a></li>
-        </ul>
-      </nav>
+      <%- include('../_partials/navbar') %>
       <main>
         <div class="description">
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate in minima odit aperiam, harum numquam sint ullam maiores autem cumque recusandae veniam cum expedita hic blanditiis error, facere nesciunt vero sit explicabo delectus? Nobis, beatae. Numquam, excepturi eos? Facere numquam molestias est eius unde placeat mollitia nihil distinctio autem saepe! Fugit aspernatur placeat quia expedita porro quis inventore asperiores quibusdam deserunt. Saepe esse quaerat rem!</p>
         </div>
         <div class="gallery"></div>
       </main>
-      <footer class="footer">
-        <p class="u-center--text"><b>Benjamin Chiang 2022</b></p>
-        <div class="footer__links"><a class="footer__link bi bi-github" href="https://github.com/FoRVaiS"></a><a class="footer__link bi bi-kanban" href="https://github.com/FoRVaiS/2537a1/issues"></a></div>
-      </footer>
+      <%- include('../_partials/footer') %>
     </div>
     <script src="/global.js"></script>
     <script src="/pages/index/index.js"></script>

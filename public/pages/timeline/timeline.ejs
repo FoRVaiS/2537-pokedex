@@ -10,21 +10,11 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="u-center--text">Pokedex</h1>
-      <nav class="navbar">
-        <ul class="navbar__list">
-          <li class="navbar__item"><a class="navbar__link" href="/">Home</a></li>
-          <li class="navbar__item"><a class="navbar__link" href="/search">Search</a></li>
-          <li class="navbar__item"><a class="navbar__link" href="/timeline">Timeline</a></li>
-        </ul>
-      </nav>
+      <%- include('../_partials/navbar') %>
       <main>
 
       </main>
-      <footer class="footer">
-        <p class="u-center--text"><b>Benjamin Chiang 2022</b></p>
-        <div class="footer__links"><a class="footer__link bi bi-github" href="https://github.com/FoRVaiS"></a><a class="footer__link bi bi-kanban" href="https://github.com/FoRVaiS/2537a1/issues"></a></div>
-      </footer>
+      <%- include('../_partials/footer') %>
       <script src="/global.js"></script>
       <script src="/pages/timeline/timeline.js"></script>
     </div>
