@@ -1,24 +1,22 @@
-const path = require('path');
-
 const { Router } = require('express');
 
-const createViewRouter = ({ viewRoot }) => {
+const createViewRouter = () => {
   const router = Router();
 
   router.get('/', (req, res) => {
-    res.sendFile(path.join(viewRoot, 'pages/index/index.html'));
+    res.render('pages/index/index');
   });
 
   router.get('/search', (req, res) => {
-    res.sendFile(path.join(viewRoot, 'pages/search/search.html'));
+    res.render('pages/search/search');
   });
 
   router.get('/profile', (req, res) => {
-    res.sendFile(path.join(viewRoot, 'pages/profile/profile.html'));
+    res.render('pages/profile/profile');
   });
 
   router.get('/timeline', (req, res) => {
-    res.sendFile(path.join(viewRoot, 'pages/timeline/timeline.html'));
+    res.render('pages/timeline/timeline');
   });
 
   return router;
