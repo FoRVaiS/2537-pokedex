@@ -22,6 +22,6 @@ const createViewRouter = ({ viewRoot }) => {
   });
 
   return router;
-}
+};
 
 module.exports = { createViewRouter };

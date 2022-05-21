@@ -14,5 +14,7 @@ const port = config.get('port');
     if (err) return console.error(err);
   
     console.log(`Server started on ${address}:${port}`);
+
+    return null;
   });
 })();

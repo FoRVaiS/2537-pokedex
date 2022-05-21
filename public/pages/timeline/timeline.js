@@ -1,12 +1,12 @@
-"use strict";
+'use strict';
 (async () => {
-  const capitalize = (str) => str[0].toUpperCase() + str.substr(1);
+  const capitalize = str => str[0].toUpperCase() + str.substr(1);
 
   const setNumberWidth = (number, width) => Array.from(Array(width)) // Create an array of size width, elements are undefined
     .fill(0) // Fill the entire array with 0s
     .join('') // Join all the elements as a single string
-    .substr(number.toString().length) // Cut away n (# digits in number) 0s
-    + number.toString(); // Append number to the end
+    .substr(number.toString().length) + // Cut away n (# digits in number) 0s
+    number.toString(); // Append number to the end
 
   const createViewProfileEventCard = (pokemon, views, lastUpdated) => {
     const date = new Date(lastUpdated);
@@ -22,7 +22,8 @@
     card.append(title);
 
     const img = document.createElement('img');
-    img.src = pokemon.sprites.other["official-artwork"].front_default;
+    img.src = pokemon.sprites.other['official-artwork'].front_default;
+    // eslint-disable-next-line no-return-assign
     img.onclick = () => window.location.href = `/profile?id=${pokemon.id}`;
     img.crossOrigin = 'cross-origin';
     card.append(img);
@@ -49,10 +50,10 @@
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            name: 'view-profile',
-            data: {
-                profileId: pokemon.id,
-            },
+          name: 'view-profile',
+          data: {
+            profileId: pokemon.id,
+          },
         }),
       });
 
@@ -66,13 +67,13 @@
   const response = await fetch('/api/v2/timeline/event');
   const { data } = await response.json();
 
-  data.results.forEach(async (result) => {
-      const { lastUpdated, count } = result
+  data.results.forEach(async result => {
+    const { lastUpdated, count } = result;
 
-      if (result.name.toLowerCase() === 'view-profile') {
-        const [pokemon] = await window.pokedex.fetchPokemonByName(result.data.profileId);
+    if (result.name.toLowerCase() === 'view-profile') {
+      const [pokemon] = await window.pokedex.fetchPokemonByName(result.data.profileId);
 
-        document.querySelector('main').append(createViewProfileEventCard(pokemon, count, lastUpdated));
-      }
-    });
+      document.querySelector('main').append(createViewProfileEventCard(pokemon, count, lastUpdated));
+    }
+  });
 })();

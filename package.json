@@ -19,5 +19,8 @@
   "scripts": {
     "start": "node .",
     "start:dev": "cross-env NODE_ENV=development nodemon ."
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
