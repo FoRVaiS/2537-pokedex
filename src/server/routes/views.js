@@ -19,6 +19,10 @@ const createViewRouter = () => {
     res.render('pages/timeline/timeline');
   });
 
+  router.get('/landing', (req, res) => {
+    res.render('pages/landing/landing');
+  });
+
   return router;
 };
 
