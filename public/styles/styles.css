@@ -1,7 +1,12 @@
+:root {
+  --border-clr: hsl(0, 0%, 80%);
+}
+
 *,
 *::before,
 *::after {
   font-family: system-ui;
+  box-sizing: border-box;
 }
 
 body {
@@ -245,6 +250,48 @@ h1 {
 .btn--secondary {
   background-color: hsl(0, 0%, 60%);
   color: white;
+}
+
+.panel {
+  width: 100%;
+  max-width: 600px;
+  padding: 32px;
+
+  border: 1px solid var(--border-clr);
+  border-radius: 5px;
+}
+
+.form, .form__group {
+  display: flex;
+  flex-direction: column;
+}
+.form {
+  gap: 32px;
+}
+.form__group {
+  gap: 12px;
+}
+.form__item {
+  display: flex;
+
+  flex-grow: 1;
+  flex-direction: column;
+
+  gap: 8px;
+}
+.form__button {
+  width: 100%;
+}
+.form__field {
+  height: 1.6rem;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border-clr);
+
+  outline: none;
+}
+.form__field:focus {
+  border-width: 2px;
 }
 
 .footer {
