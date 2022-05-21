@@ -1,6 +1,7 @@
 const path = require('path');
 
 const express = require('express');
+const sessions = require('express-session');
 const mongoose = require('mongoose');
 const config = require('config');
 
@@ -30,6 +31,11 @@ const createExpressInstance = async () => {
       },
     }));
     app.use(morgan('combined'));
+    app.use(sessions({
+      secret: process.env.NODE_ENV === 'production' ? config.get('secret') : 'devsecret',
+      resave: false,
+      saveUninitialized: true,
+    }));
 
     app.use(express.static(viewRoot));
     app.use(express.json());
