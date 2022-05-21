@@ -175,6 +175,78 @@ h1 {
   cursor: pointer;
 }
 
+.section {
+  width: 100%;
+  min-height: 350px;
+  margin-bottom: 64px;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+  gap: 32px;
+}
+.hero__body {
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+  flex-grow: 1;
+}
+.hero__actions {
+  display: flex;
+
+  gap: 16px;
+}
+
+.showcase {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 64px;
+  flex-wrap: wrap;
+}
+.showcase__img {
+  display: block;
+  
+  width: 100%;
+  max-width: 150px;
+  
+  margin-inline: auto;
+}
+@media screen and (min-width: 481px) {
+  .showcase__item {
+    width: 20%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .showcase {
+    flex-direction: column;
+  }
+}
+
+.btn {
+  /* Button Clears */
+  background: 0;
+  border: 0;
+
+  /* Default button style */
+  border-radius: 5px;
+  padding: .7rem 1.2rem 0.9rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.btn--primary {
+  background-color: hsl(204, 88%, 60%);
+  color: white;
+}
+.btn--secondary {
+  background-color: hsl(0, 0%, 60%);
+  color: white;
+}
+
 .footer {
   display: flex;
   flex-direction: column;

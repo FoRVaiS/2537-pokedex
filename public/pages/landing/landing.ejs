@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/pages/landing/landing.css">
+  <title>Welcome!</title>
+</head>
+<body>
+  <div class="container">
+    <%- include('../_partials/navbar') %>
+    <main>
+      <div class="section hero">
+        <div class="hero__body">
+          <h1 class="u-center--text">Adopt a Pokemon!</h1>
+          <p class="u-center--text">Choose from a collection of 868 unique Pokemon to be your own!</p>
+          <div id="pokemon-showcase" class="showcase"></div>
+        </div>
+        <div class="hero__actions">
+          <input type="button" id="in-login" class="btn btn--primary" value="Adopt Now!">
+        </div>
+      </div>
+    </main>
+    <%- include('../_partials/footer') %>
+  </div>
+  <script src="/global.js"></script>
+  <script src="/pages/landing/landing.js"></script>
+</body>
+</html>
