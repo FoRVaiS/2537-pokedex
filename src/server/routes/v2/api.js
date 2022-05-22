@@ -13,10 +13,10 @@ const createV2Router = () => {
   router.get('/pokemon', pokemonController.fetchPokemon);
   router.get('/type/:id', typeController.fetchType);
   router.get('/ability/:id', abilityController.fetchAbility);
-  router.get('/timeline/event', timelineController.fetchEvents);
-  router.get('/timeline/event/:name', timelineController.fetchEvent);
-  router.post('/timeline/capture', timelineController.captureEvent);
-  router.post('/timeline/remove', timelineController.deleteEvent);
+  router.get('/user/timeline/event', timelineController.fetchEvents);
+  router.get('/user/timeline/event/:name', timelineController.fetchEvent);
+  router.post('/user/timeline/capture', timelineController.captureEvent);
+  router.post('/user/timeline/remove', timelineController.deleteEvent);
   router.post('/user/register', userController.createUser);
   router.post('/user/login', userController.login);
 
