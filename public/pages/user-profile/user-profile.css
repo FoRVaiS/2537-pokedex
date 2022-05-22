@@ -1,0 +1,32 @@
+.subtitle {
+  font-size: 0.8125rem;
+  color: hsl(0 0% 68%);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+.group--inline {
+  flex-direction: row;
+}
+.group__item {
+  flex-grow: 1;
+}
+
+.panel {
+  height: fit-content;
+  gap: 16px;
+}
+
+#panel--left {
+  margin-top: 16px;
+}
+
+#panel--right {
+  border: 0;
+}
+
+main {
+  display: flex;
+}

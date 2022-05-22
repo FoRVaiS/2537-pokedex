@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/pages/user-profile/user-profile.css">
+  <title>User Profile</title>
+</head>
+
+<body>
+  <div class="container">
+    <%- include('../_partials/navbar') %>
+    <main>
+      <div id="panel--left" class="panel group">
+        <span class="group__item">
+          <h2 class="u-clear-header"><%= username %></h2>
+        </span>
+        <div class="group">
+          <span class="group__item">
+            <div class="subtitle">Full Name</div>
+            <div><%= firstName %> <%= lastName %></div>
+          </span>
+        </div>
+        <span class="group group--inline">
+          <span class="group__item">
+            <div class="subtitle">Age</div>
+            <div><%= age %></div>
+          </span>
+          <span class="group__item">
+            <div class="subtitle">Gender</div>
+            <div><%= gender %></div>
+          </span>
+        </span>
+      </div>
+      <div id="panel--right" class="panel">
+        <div class="group">
+          <div class="group__item">
+            <h2 class="u-clear-header">Timeline</h2>
+            <div id="timeline"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include('../_partials/footer') %>
+  </div>
+  <script src="/global.js"></script>
+  <script src="/pages/user-profile/user-profile.js"></script>
+</body>
+
+</html>
