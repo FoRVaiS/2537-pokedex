@@ -64,8 +64,9 @@
     return card;
   };
 
-  const response = await fetch('/api/v2/user/timeline/event');
-  const { data } = await response.json();
+  const { query } = window.pokedex;
+
+  const { data } = await query('/api/v2/user/timeline/event');
 
   data.results.forEach(async result => {
     const { lastUpdated, count } = result;
@@ -73,7 +74,7 @@
     if (result.name.toLowerCase() === 'view-profile') {
       const [pokemon] = await window.pokedex.fetchPokemonByName(result.data.profileId);
 
-      document.querySelector('main').append(createViewProfileEventCard(pokemon, count, lastUpdated));
+      document.querySelector('#timeline').append(createViewProfileEventCard(pokemon, count, lastUpdated));
     }
   });
 })();
