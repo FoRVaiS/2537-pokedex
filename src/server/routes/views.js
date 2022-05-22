@@ -23,6 +23,10 @@ const createViewRouter = () => {
     res.render('pages/landing/landing');
   });
 
+  router.get('/register', (req, res) => {
+    res.render('pages/register/register');
+  });
+
   return router;
 };
 
