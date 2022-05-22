@@ -98,4 +98,14 @@
       return null;
     };
   })(window.pokedex = window.pokedex || {});
+
+  const logoutBtn = document.querySelector('#in-logout');
+
+  if (logoutBtn) {
+    logoutBtn.onclick = async () => {
+      await fetch('/api/v2/user/logout');
+
+      window.location.href = '/';
+    };
+  }
 })();

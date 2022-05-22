@@ -52,4 +52,14 @@ const login = async (req, res) => {
   });
 };
 
-module.exports = { createUser, login };
+const logout = async (req, res) => {
+  req.session.isAuthenticated = false;
+  req.session._id = null;
+
+  res.status(200).json({
+    success: true,
+    data: null,
+  });
+};
+
+module.exports = { createUser, login, logout };
