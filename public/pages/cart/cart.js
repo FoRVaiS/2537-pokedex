@@ -85,6 +85,7 @@
     summaryRef.append(root);
   };
 
+  const cartId = (new URL(window.location.href)).pathname.split('/').pop();
   const checkoutBtn = document.querySelector('input[value="Checkout"]');
 
   checkoutBtn.onclick = async e => {
@@ -96,7 +97,7 @@
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: (new URL(window.location.href)).pathname.split('/').pop(),
+        id: cartId,
       }),
     });
 
@@ -107,7 +108,7 @@
     }
   };
 
-  const { success, data: pokemon } = await query('/api/v2/user/cart');
+  const { success, data: { pokemon } } = await query(`/api/v2/user/cart/${cartId}`);
   let totalPrice = 0;
 
   if (success) pokemon.forEach(_pokemon => {
