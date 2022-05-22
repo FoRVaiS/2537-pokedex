@@ -108,6 +108,15 @@ h1 {
     flex-direction: column;
   }
 }
+.navbar__icon {
+  line-height: 0;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  height: fit-content;
+  margin-block: auto;
+  margin-right: 16px;
+}
 
 .gallery {
   display: flex;
