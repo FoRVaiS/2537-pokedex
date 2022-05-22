@@ -94,7 +94,7 @@
   }));
 
   // Record User Visit
-  fetch('/api/v2/timeline/capture', {
+  fetch('/api/v2/user/timeline/capture', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',

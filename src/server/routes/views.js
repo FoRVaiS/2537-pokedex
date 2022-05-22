@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { UserModel } = require('../models/user.model');
 
 const createViewRouter = () => {
   const router = Router();
@@ -25,6 +26,18 @@ const createViewRouter = () => {
 
   router.get('/login', (req, res) => {
     res.render('pages/login/login');
+  });
+
+  router.get('/user', async (req, res) => {
+    const [user] = await UserModel.find({ _id: req.session._id });
+
+    res.render('pages/user-profile/user-profile', {
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      age: user.age,
+      gender: user.gender,
+    });
   });
 
   return router;
