@@ -1,8 +1,8 @@
 const { UserModel } = require('../models/user.model');
 
 const createUser = async (req, res) => {
-  const username = req.body.username.toLowerCase();
-  const password = req.body.password.toLowerCase();
+  const username = req.body.username.trim();
+  const password = req.body.password;
 
   const [existingUser] = await UserModel.find({ username });
 
