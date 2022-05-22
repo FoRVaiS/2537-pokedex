@@ -1,6 +1,7 @@
-const { model, Schema } = require('mongoose');
+const { model, Schema, Types } = require('mongoose');
 
 const EventModel = model('event', new Schema({
+  userId: Types.ObjectId,
   name: String,
   count: Number,
   lastUpdated: Number,
