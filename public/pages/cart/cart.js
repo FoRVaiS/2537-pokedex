@@ -1,5 +1,5 @@
 (async () => {
-  const { query } = window.pokedex;
+  const { query, getRequiredValueFrom } = window.pokedex;
 
   const cartRef = document.querySelector('.cart');
   const summaryRef = document.querySelector('.checkout > .checkout__summary');
@@ -131,6 +131,7 @@
   };
 
   const { success, data: { pokemon, isArchived } } = await query(`/api/v2/user/cart/${cartId}`);
+
   let totalPrice = 0;
 
   if (success) {
@@ -138,6 +139,19 @@
       totalPrice += _pokemon.price * _pokemon.quantity;
       appendCartItem(_pokemon);
       appendSummaryItem(_pokemon);
+    });
+
+    document.querySelectorAll('main input[type="number"]').forEach(input => {
+      input.onchange = () => query('/api/v2/user/cart/quantity', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: Number(input.getAttribute('data-id')),
+          quantity: Number(input.value),
+        }),
+      });
     });
 
     if (isArchived) {
