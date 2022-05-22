@@ -1,7 +1,7 @@
 const { UserModel } = require('../models/user.model');
 
 const createUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, age, gender, firstName, lastName } = req.body;
 
   const [existingUser] = await UserModel.find({ username: username.trim() });
 
@@ -13,7 +13,15 @@ const createUser = async (req, res) => {
   });
 
   try {
-    await UserModel.create({ username, password, roles: ['member'] });
+    await UserModel.create({
+      username: username.trim(),
+      password,
+      age,
+      gender,
+      firstName,
+      lastName,
+      roles: ['member'],
+    });
 
     return res.status(200).json({ success: true, data: null });
   } catch (e) {
