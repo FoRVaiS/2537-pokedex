@@ -1,5 +1,6 @@
 :root {
   --border-clr: hsl(0, 0%, 80%);
+  --gutter: 16px;
 }
 
 *,
@@ -18,6 +19,14 @@ body {
 h1 {
   margin: 0;
   padding-block: 1rem;
+}
+
+#logo {
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .u-center--text {
@@ -47,15 +56,20 @@ h1 {
 }
 .container main {
   flex-grow: 1;
+
+  padding-inline: var(--gutter);
 }
 
 .navbar {
   display: flex;
-  justify-content: space-between;
   background-color: #333333;
+  align-items: center;
+  gap: 16px;
+  padding: var(--gutter);
 }
 .navbar__list {
   display: flex;
+  justify-content: space-between;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -218,7 +232,7 @@ h1 {
   
   width: 100%;
   max-width: 150px;
-  
+
   margin-inline: auto;
 }
 @media screen and (min-width: 481px) {
@@ -308,6 +322,7 @@ h1 {
   padding-bottom: 16px;
   color: white;
   background-color: #333333;
+  padding: var(--gutter);
 }
 .footer__links {
   display: flex;
