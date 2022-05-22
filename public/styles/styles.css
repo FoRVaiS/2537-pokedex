@@ -268,6 +268,13 @@ h1 {
 .form {
   gap: 32px;
 }
+.form__alert {
+  margin-block: 0;
+  color: red;
+}
+.form__alert[data-hidden] {
+  display: none;
+}
 .form__group {
   gap: 12px;
 }
