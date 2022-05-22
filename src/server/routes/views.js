@@ -5,7 +5,7 @@ const createViewRouter = () => {
   const router = Router();
 
   router.get('/', (req, res) => (req.session.isAuthenticated
-    ? res.render('pages/index/index')
+    ? res.redirect('/user')
     : res.render('pages/landing/landing')));
 
   router.get('/search', (req, res) => {
@@ -24,9 +24,9 @@ const createViewRouter = () => {
     res.render('pages/register/register');
   });
 
-  router.get('/login', (req, res) => {
-    res.render('pages/login/login');
-  });
+  router.get('/login', (req, res) => (req.session.isAuthenticated
+    ? res.redirect('/user')
+    : res.render('pages/login/login')));
 
   router.get('/user', async (req, res) => {
     const [user] = await UserModel.find({ _id: req.session._id });
