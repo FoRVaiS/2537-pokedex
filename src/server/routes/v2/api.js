@@ -18,6 +18,7 @@ const createV2Router = () => {
   router.post('/timeline/capture', timelineController.captureEvent);
   router.post('/timeline/remove', timelineController.deleteEvent);
   router.post('/user/register', userController.createUser);
+  router.post('/user/login', userController.login);
 
   return router;
 };
