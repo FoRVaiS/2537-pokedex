@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
   });
 
   try {
-    await UserModel.create({ username, password });
+    await UserModel.create({ username, password, roles: ['member'] });
 
     return res.status(200).json({ success: true, data: null });
   } catch (e) {
