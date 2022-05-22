@@ -8,7 +8,7 @@
     },
     body: JSON.stringify({
       username: username.trim(),
-      password: password.trim(),
+      password,
     }),
   });
 

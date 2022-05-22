@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
 
 const login = async (req, res) => {
   const username = req.body.username.trim();
-  const password = req.body.password.trim();
+  const password = req.body.password;
 
   const [user] = await UserModel.find({ username }, { __id: 0, _v: 0 });
 
