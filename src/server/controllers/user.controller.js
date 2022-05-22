@@ -1,10 +1,9 @@
 const { UserModel } = require('../models/user.model');
 
 const createUser = async (req, res) => {
-  const username = req.body.username.trim();
-  const password = req.body.password;
+  const { username, password } = req.body;
 
-  const [existingUser] = await UserModel.find({ username });
+  const [existingUser] = await UserModel.find({ username: username.trim() });
 
   if (existingUser) return res.status(400).json({
     success: false,
@@ -23,10 +22,9 @@ const createUser = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const username = req.body.username.trim();
-  const password = req.body.password;
+  const { username, password } = req.body;
 
-  const [user] = await UserModel.find({ username }, { __id: 0, _v: 0 });
+  const [user] = await UserModel.find({ username: username.trim() }, { __id: 0, _v: 0 });
 
   if (user && user.password === password) {
     req.session.isAuthenticated = true;
