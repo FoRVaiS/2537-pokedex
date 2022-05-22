@@ -108,14 +108,21 @@
     }
   };
 
-  const { success, data: { pokemon } } = await query(`/api/v2/user/cart/${cartId}`);
+  const { success, data: { pokemon, isArchived } } = await query(`/api/v2/user/cart/${cartId}`);
   let totalPrice = 0;
 
-  if (success) pokemon.forEach(_pokemon => {
-    totalPrice += _pokemon.price * _pokemon.quantity;
-    appendCartItem(_pokemon);
-    appendSummaryItem(_pokemon);
-  });
+  if (success) {
+    pokemon.forEach(_pokemon => {
+      totalPrice += _pokemon.price * _pokemon.quantity;
+      appendCartItem(_pokemon);
+      appendSummaryItem(_pokemon);
+    });
+
+    if (isArchived) {
+      // eslint-disable-next-line no-return-assign
+      Array.from(document.querySelectorAll('main input')).forEach(input => input.disabled = true);
+    }
+  }
 
   const totalRef = document.querySelector('#total');
 
