@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/pages/cart/cart.css">
+  <title>Pokedex Cart</title>
+</head>
+
+<body>
+  <div class="container">
+    <%- include('../_partials/navbar') %>
+    <main>
+      <div class="cart"></div>
+      <div class="checkout panel">
+        <h2 class="checkout__title u-clear-header">Review your order</h2>
+        <div class="group checkout__summary"></div>
+        <div>
+          <hr>
+        </div>
+        <p class="checkout__total">Total (after taxes): <span id="total">$0.00</span></p>
+        <div class="checkout__actions group group--inline">
+          <input class="btn btn--secondary" type="button" value="Discard Cart">
+          <input class="btn btn--primary" type="button" value="Checkout">
+        </div>
+      </div>
+    </main>
+    <%- include('../_partials/footer') %>
+  </div>
+  <script src="/global.js"></script>
+  <script src="/pages/cart/cart.js"></script>
+</body>
+
+</html>

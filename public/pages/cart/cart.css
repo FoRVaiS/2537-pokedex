@@ -1,0 +1,80 @@
+main {
+  display: flex;
+
+  width: 100%;
+  max-width: 1200px;
+  margin: 16px auto;
+}
+
+@media screen and (min-width: 961px) {
+  main {
+    gap: 64px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  main {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+  width: 100%;
+  align-items: center;
+}
+
+.panel {
+  height: fit-content;
+  gap: 16px;
+}
+
+.checkout {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 500px;
+  flex: 1;
+}
+.checkout__summary {
+  flex-grow: 1;
+}
+.checkout__total {
+  text-align: end;
+}
+.checkout__actions {
+  gap: 8px;
+  justify-content: end;
+  flex-wrap: wrap;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 720px;
+  width: 100%;
+}
+@media screen and (max-width: 960px) {
+  .item {
+    /* The pokemon img has huge amounts of empty space */
+    padding-right: 35px; 
+  }
+}
+.item__icon, .item__name, .item__price, .item__quantity {
+  align-self: center;
+}
+.item__quantity {
+  width: 8ch;
+  height: fit-content;
+}
+.item__price {
+  margin: 0;
+}
+.item__right {
+  gap: 16px;
+}
