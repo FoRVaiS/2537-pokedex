@@ -287,6 +287,17 @@ h1 {
   border-radius: 5px;
 }
 
+.group {
+  display: flex;
+  flex-direction: column;
+}
+.group--inline {
+  flex-direction: row;
+}
+.group__item {
+  flex-grow: 1;
+}
+
 .form, .form__group {
   display: flex;
   flex-direction: column;

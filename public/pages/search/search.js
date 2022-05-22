@@ -1,5 +1,6 @@
 'use strict';
 (() => {
+  const { query, getRequiredValueFrom } = window.pokedex;
   const clearResultsSection = function clearResultsSection() {
     const resultsRef = document.querySelector("section[region='results'] > .u-center-evenly-spaced");
     resultsRef.innerHTML = '';
@@ -17,7 +18,8 @@
     if (!pokemon.sprites) return;
 
     const root = document.createElement('span');
-        
+    root.classList.add('group');
+
     const img = document.createElement('img');
     img.style.cursor = 'pointer';
     img.src = pokemon.sprites.front_default;
@@ -25,6 +27,37 @@
     // eslint-disable-next-line no-return-assign
     img.onclick = () => window.location.href = `/profile?id=${pokemon.id}`;
     root.append(img);
+
+    const name = document.createElement('h4');
+    name.classList.add('u-clear-header');
+    name.classList.add('u-center--text');
+    name.textContent = pokemon.name.toUpperCase();
+    root.append(name);
+
+    const qtyField = document.createElement('input');
+    qtyField.setAttribute('name', 'quantity');
+    qtyField.setAttribute('data-id', pokemon.id);
+    qtyField.setAttribute('min', 1);
+    qtyField.value = 1;
+    qtyField.type = 'number';
+    root.append(qtyField);
+
+    const addToCartBtn = document.createElement('input');
+    addToCartBtn.classList.add('btn');
+    addToCartBtn.classList.add('btn--secondary');
+    addToCartBtn.setAttribute('name', 'add-to-cart');
+    addToCartBtn.setAttribute('data-id', pokemon.id);
+    addToCartBtn.value = 'Add to Cart';
+    addToCartBtn.type = 'button';
+    addToCartBtn.onclick = async () => {
+      const quantity = getRequiredValueFrom(`input[name="quantity"][data-id="${pokemon.id}"]`, Number);
+
+      if (!quantity) return null;
+      qtyField.value = 1;
+
+      return query(`/api/v2/user/cart/${pokemon.id}/${quantity}`);
+    };
+    root.append(addToCartBtn);
 
     if (pokemon.sprites.front_default !== null) resultsRef.append(root);
   };
@@ -45,7 +78,7 @@
 
   const appendHistoryItem = function appendHistoryItem(id, pokemon, mode, query) {
     const historyRef = document.querySelector("section[region='history'] > .history");
-        
+
     const root = document.createElement('div');
     root.onclick = renderPokemon.bind(null, pokemon);
     root.classList.add('history__item');
@@ -64,7 +97,7 @@
     trashbinIcon.classList.add('history__remove', 'bi', 'bi-trash');
     trashbinIcon.onclick = deleteHistoryItem.bind(null, id);
     root.append(trashbinIcon);
-        
+
     historyRef.append(root);
   };
 
@@ -85,7 +118,7 @@
 
   const sendAlert = function sendAlert(msg) {
     const template = document.querySelector('#template-alert');
-        
+
     const alertNode = template.content.cloneNode(true);
     alertNode.querySelector('.alert__msg').textContent = msg;
     document.querySelector('.container').prepend(alertNode);
