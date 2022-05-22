@@ -1,5 +1,5 @@
 (async () => {
-  const { query } = window.pokedex;
+  const { query, getRequiredValueFrom } = window.pokedex;
 
   const sendRegisterRequest = ({ username, password, firstName, lastName, age, gender }) => query('/api/v2/user/register', {
     method: 'post',
@@ -16,12 +16,6 @@
     }),
   });
 
-  const usernameField = document.querySelector('input[name=\'username\']');
-  const passwordField = document.querySelector('input[name=\'password\']');
-  const firstNameField = document.querySelector('input[name=\'first-name\']');
-  const lastNameField = document.querySelector('input[name=\'last-name\']');
-  const ageField = document.querySelector('input[name=\'age\']');
-  const genderField = document.querySelector('select[name=\'gender\']');
   const alertDialogue = document.querySelector('p.form__alert');
   const registerBtn = document.querySelector('input[type=\'submit\']');
   let lastTimeout = null;
@@ -29,14 +23,16 @@
   registerBtn.onclick = e => {
     e.preventDefault();
 
-    sendRegisterRequest({
-      username: usernameField.value,
-      password: passwordField.value,
-      firstName: firstNameField.value,
-      lastName: lastNameField.value,
-      age: ageField.value,
-      gender: genderField.value,
-    })
+    const username = getRequiredValueFrom('input[name=\'username\']', String);
+    const password = getRequiredValueFrom('input[name=\'password\']', String);
+    const firstName = getRequiredValueFrom('input[name=\'first-name\']', String);
+    const lastName = getRequiredValueFrom('input[name=\'last-name\']', String);
+    const age = getRequiredValueFrom('input[name=\'age\']', Number);
+    const gender = getRequiredValueFrom('select[name=\'gender\']', String);
+
+    if ([username, password, firstName, lastName, age, gender].includes(null)) return null;
+
+    return sendRegisterRequest({ username, password, firstName, lastName, age, gender })
       .then(results => {
         if (!results.success) {
           clearTimeout(lastTimeout);

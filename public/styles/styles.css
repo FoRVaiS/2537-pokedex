@@ -306,6 +306,9 @@ h1 {
 .form__button {
   width: 100%;
 }
+.form__error {
+  border-color: red !important;
+}
 .form__subtitle {
   font-size: 0.8125rem;
   margin-block: 0;

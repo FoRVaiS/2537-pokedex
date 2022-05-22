@@ -1,5 +1,5 @@
 (async () => {
-  const { query } = window.pokedex;
+  const { query, getRequiredValueFrom } = window.pokedex;
 
   const sendLoginRequest = (username, password) => query('/api/v2/user/login', {
     method: 'post',
@@ -12,8 +12,6 @@
     }),
   });
 
-  const usernameField = document.querySelector('input[name=\'username\']');
-  const passwordField = document.querySelector('input[name=\'password\']');
   const alertDialogue = document.querySelector('p.form__alert');
   const loginBtn = document.querySelector('input[type=\'submit\']');
   let lastTimeout = null;
@@ -21,7 +19,12 @@
   loginBtn.onclick = e => {
     e.preventDefault();
 
-    sendLoginRequest(usernameField.value, passwordField.value)
+    const username = getRequiredValueFrom('input[name=\'username\']', String);
+    const password = getRequiredValueFrom('input[name=\'password\']', String);
+
+    if (username === null || password === null) return null;
+
+    return sendLoginRequest(username, password)
       .then(results => {
         if (!results.success) {
           clearTimeout(lastTimeout);
