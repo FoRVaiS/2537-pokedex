@@ -11,6 +11,7 @@ const common = {
   'multiline-comment-style': 0,
   'no-restricted-syntax': 0,
 
+  'require-atomic-updates': 0,
   'max-classes-per-file': 0,
   'class-methods-use-this': 0,
   'new-cap': 0,
