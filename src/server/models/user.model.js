@@ -7,6 +7,7 @@ const UserModel = model('user', new Schema({
   lastName: String,
   age: Number,
   gender: String,
+  activeCart: { type: Number, default: -1 },
   roles: [String],
 }));
 

@@ -5,6 +5,7 @@ const typeController = require('../../controllers/type.controller');
 const abilityController = require('../../controllers/ability.controller');
 const timelineController = require('../../controllers/timeline.controller');
 const userController = require('../../controllers/user.controller');
+const cartController = require('../../controllers/cart.controller');
 
 const createV2Router = () => {
   const router = Router();
@@ -20,6 +21,7 @@ const createV2Router = () => {
   router.post('/user/register', userController.createUser);
   router.post('/user/login', userController.login);
   router.get('/user/logout', userController.logout);
+  router.post('/user/cart/add', cartController.addToCart);
 
   return router;
 };
