@@ -46,6 +46,35 @@ const addToCart = async (req, res) => {
   }
 };
 
+const updateItemQuantity = async (req, res) => {
+  const { _id } = req.session;
+  const { id: pokemonId, quantity } = req.body;
+  
+  const user = await UserModel.findById(_id);
+
+  if (user) {
+    const cartId = user.activeCart;
+
+    await CartModel.updateOne({
+      cartId,
+      pokemon: {
+        $elemMatch: { id: pokemonId },
+      },
+    }, {
+      $set: {
+        'pokemon.$.quantity': quantity,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        cartId,
+      },
+    });
+  }
+};
+
 const checkout = async (req, res) => {
   const { id } = req.body;
 
@@ -122,4 +151,4 @@ const fetchCart = async (req, res) => {
   });
 };
 
-module.exports = { addToCart, checkout, fetchCart, removeCart };
+module.exports = { addToCart, checkout, fetchCart, removeCart, updateItemQuantity };
