@@ -34,4 +34,7 @@
 
     document.querySelector('#pokemon-showcase').append(root);
   });
+
+  // eslint-disable-next-line no-return-assign
+  document.querySelector('#in-login').onclick = () => window.location.href = '/login';
 })();
