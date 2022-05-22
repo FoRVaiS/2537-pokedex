@@ -19,14 +19,38 @@
       <div class="register panel">
         <form class="form">
           <p class="form__alert" data-hidden></p>
-          <div class="form__group">
+          <div class="form__group form__group--inline">
             <span class="form__item">
               <label class="form__label" for="in-username">Username</label>
               <input id="in-username" class="form__field" type="text" name="username">
             </span>
             <div class="form__item">
               <label for="in-password" class="form__label">Password</label>
-              <input id="in-password" class="form__field"type="password" name="password">
+              <input id="in-password" class="form__field" type="password" name="password">
+            </div>
+          </div>
+          <div class="form__group form__group--inline">
+            <div class="form__item">
+              <label for="in-first-name" class="form__label">First Name</label>
+              <input id="in-first-name" class="form__field" type="text" name="first-name">
+            </div>
+            <div class="form__item">
+              <label for="in-last-name" class="form__label">Last Name</label>
+              <input id="in-last-name" class="form__field" type="text" name="last-name">
+            </div>
+          </div>
+          <div class="form__group form__group--inline">
+            <div class="form__item">
+              <label for="in-age" class="form__label">Age</label>
+              <input id="in-age" class="form__field" type="number" name="age">
+            </div>
+            <div class="form__item">
+              <label for="in-gender" class="form__label">Gender</label>
+              <select id="in-gender" class="form__field" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
             </div>
           </div>
           <div>

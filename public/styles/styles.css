@@ -292,6 +292,9 @@ h1 {
 .form__group {
   gap: 12px;
 }
+.form__group--inline {
+  flex-direction: row;
+}
 .form__item {
   display: flex;
 
