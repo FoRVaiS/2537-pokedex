@@ -85,6 +85,28 @@
     summaryRef.append(root);
   };
 
+  const checkoutBtn = document.querySelector('input[value="Checkout"]');
+
+  checkoutBtn.onclick = async e => {
+    e.preventDefault();
+
+    const { success } = await query('/api/v2/user/cart/checkout', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: (new URL(window.location.href)).pathname.split('/').pop(),
+      }),
+    });
+
+    if (success) {
+      // TODO: Display alert indicating the cart is now archived
+      // eslint-disable-next-line no-return-assign
+      setTimeout(() => window.location.href = '/', 5e3);
+    }
+  };
+
   const { success, data: pokemon } = await query('/api/v2/user/cart');
   let totalPrice = 0;
 

@@ -3,6 +3,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const CartSchema = new mongoose.Schema({
   userId: mongoose.Types.ObjectId,
+  isArchived: { type: Boolean, default: false },
   pokemon: Array,
 });
 // eslint-disable-next-line camelcase
