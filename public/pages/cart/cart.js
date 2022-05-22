@@ -108,6 +108,28 @@
     }
   };
 
+  const discardBtn = document.querySelector('input[value="Discard Cart"]');
+
+  discardBtn.onclick = async e => {
+    e.preventDefault();
+
+    const { success } = await query('/api/v2/user/cart/remove', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: cartId,
+      }),
+    });
+
+    if (success) {
+      // TODO: Display alert indicating the cart is now removed
+      // eslint-disable-next-line no-return-assign
+      setTimeout(() => window.location.href = '/', 5e3);
+    }
+  };
+
   const { success, data: { pokemon, isArchived } } = await query(`/api/v2/user/cart/${cartId}`);
   let totalPrice = 0;
 

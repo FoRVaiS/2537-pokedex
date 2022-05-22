@@ -77,6 +77,33 @@ const checkout = async (req, res) => {
   });
 };
 
+const removeCart = async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    await Promise.all([
+      CartModel.deleteOne({ cartId: id }),
+      UserModel.findByIdAndUpdate(req.session._id, {
+        $set: {
+          activeCart: null,
+        },
+      }),
+    ]);
+  } catch (e) {
+    return res.status(400).json({
+      success: false,
+      data: {
+        msg: 'Cart could not be found',
+      },
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    data: null,
+  });
+};
+
 const fetchCart = async (req, res) => {
   const { id } = req.params;
 
@@ -95,4 +122,4 @@ const fetchCart = async (req, res) => {
   });
 };
 
-module.exports = { addToCart, checkout, fetchCart };
+module.exports = { addToCart, checkout, fetchCart, removeCart };

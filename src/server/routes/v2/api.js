@@ -23,6 +23,7 @@ const createV2Router = () => {
   router.get('/user/logout', userController.logout);
   router.get('/user/cart/:id', cartController.fetchCart);
   router.post('/user/cart/add', cartController.addToCart);
+  router.post('/user/cart/remove', cartController.removeCart);
   router.post('/user/cart/checkout', cartController.checkout);
 
   return router;
