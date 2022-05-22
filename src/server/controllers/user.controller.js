@@ -28,17 +28,22 @@ const login = async (req, res) => {
 
   const [user] = await UserModel.find({ username }, { __id: 0, _v: 0 });
 
-  return user && user.password === password
-    ? res.status(200).json({
+  if (user && user.password === password) {
+    req.session.isAuthenticated = true;
+    req.session._id = user._id;
+
+    return res.status(200).json({
       success: true,
       data: user,
-    })
-    : res.status(400).json({
-      success: false,
-      data: {
-        msg: 'Account could not be found or does not exist.',
-      },
     });
+  }
+
+  return res.status(400).json({
+    success: false,
+    data: {
+      msg: 'Account could not be found or does not exist.',
+    },
+  });
 };
 
 module.exports = { createUser, login };
