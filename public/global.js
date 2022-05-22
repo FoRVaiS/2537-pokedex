@@ -75,5 +75,27 @@
       const response = await fetch(endpoint, opts);
       return response.json();
     };
+
+    self.getRequiredValueFrom = function getRequiredValueFrom(selector, type) {
+      const field = document.querySelector(selector);
+
+      if (!field) {
+        console.warn(`Could not find selector '${selector}'`);
+        return null;
+      }
+
+      if (typeof type() === 'string' && typeof field.value === 'string' && field.value !== '') {
+        field.classList.remove('form__error');
+        return field.value;
+      }
+
+      if (typeof type() === 'number' && !isNaN(Number(field.value)) && field.value !== '') {
+        field.classList.remove('form__error');
+        return Number(field.value);
+      }
+
+      field.classList.add('form__error');
+      return null;
+    };
   })(window.pokedex = window.pokedex || {});
 })();
