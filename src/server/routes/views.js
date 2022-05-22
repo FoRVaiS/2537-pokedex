@@ -27,6 +27,10 @@ const createViewRouter = () => {
     res.render('pages/register/register');
   });
 
+  router.get('/login', (req, res) => {
+    res.render('pages/login/login');
+  });
+
   return router;
 };
 
