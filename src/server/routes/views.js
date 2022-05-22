@@ -3,9 +3,9 @@ const { Router } = require('express');
 const createViewRouter = () => {
   const router = Router();
 
-  router.get('/', (req, res) => {
-    res.render('pages/index/index');
-  });
+  router.get('/', (req, res) => (req.session.isAuthenticated
+    ? res.render('pages/index/index')
+    : res.render('pages/landing/landing')));
 
   router.get('/search', (req, res) => {
     res.render('pages/search/search');
@@ -17,10 +17,6 @@ const createViewRouter = () => {
 
   router.get('/timeline', (req, res) => {
     res.render('pages/timeline/timeline');
-  });
-
-  router.get('/landing', (req, res) => {
-    res.render('pages/landing/landing');
   });
 
   router.get('/register', (req, res) => {
