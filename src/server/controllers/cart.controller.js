@@ -46,4 +46,35 @@ const addToCart = async (req, res) => {
   }
 };
 
-module.exports = { addToCart };
+const checkout = async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    await Promise.all([
+      CartModel.updateOne({ cartId: id }, {
+        $set: {
+          isArchived: true,
+        },
+      }),
+      UserModel.findByIdAndUpdate(req.session._id, {
+        $set: {
+          activeCart: null,
+        },
+      }),
+    ]);
+  } catch (e) {
+    return res.status(400).json({
+      success: false,
+      data: {
+        msg: 'Cart could not be found',
+      },
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    data: null,
+  });
+};
+
+module.exports = { addToCart, checkout };
