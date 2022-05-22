@@ -40,6 +40,20 @@ const createViewRouter = () => {
     });
   });
 
+  router.get('/cart', async (req, res) => {
+    const { _id } = req.session;
+    const user = await UserModel.findById(_id);
+    if (user && user.activeCart) {
+      res.redirect(`/cart/${user.activeCart}`);
+    } else {
+      res.redirect('/404');
+    }
+  });
+
+  router.get('/cart/:id', async (req, res) => {
+    res.render('pages/cart/cart');
+  });
+
   return router;
 };
 
