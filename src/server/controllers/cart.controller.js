@@ -77,4 +77,22 @@ const checkout = async (req, res) => {
   });
 };
 
-module.exports = { addToCart, checkout };
+const fetchCart = async (req, res) => {
+  const { id } = req.params;
+
+  const cart = await CartModel.findOne({ cartId: id }, { _id: 0, __v: 0 });
+
+  if (!cart) return res.status(400).json({
+    success: false,
+    data: {
+      msg: 'Cart does not exist or id is invalid',
+    },
+  });
+
+  return res.status(200).json({
+    success: true,
+    data: cart,
+  });
+};
+
+module.exports = { addToCart, checkout, fetchCart };
