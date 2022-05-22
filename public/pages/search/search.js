@@ -55,7 +55,16 @@
       if (!quantity) return null;
       qtyField.value = 1;
 
-      return query(`/api/v2/user/cart/${pokemon.id}/${quantity}`);
+      return query('/api/v2/user/cart/add', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: pokemon.id,
+          quantity,
+        }),
+      });
     };
     root.append(addToCartBtn);
 
