@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/pages/login/login.css">
+  <title>Pokedex Registration</title>
+</head>
+
+<body>
+  <div class="container">
+    <%- include('../_partials/navbar') %>
+    <main>
+      <h2>Login into your account</h2>
+      <div class="login panel">
+        <form class="form">
+          <p class="form__alert" data-hidden></p>
+          <div class="form__group">
+            <span class="form__item">
+              <label class="form__label" for="in-username">Username</label>
+              <input id="in-username" class="form__field" type="text" name="username">
+            </span>
+            <div class="form__item">
+              <label for="in-password" class="form__label">Password</label>
+              <input id="in-password" class="form__field"type="password" name="password">
+            </div>
+          </div>
+          <div class="form__item">
+            <input id="id-login" class="form__button btn btn--primary" type="submit" value="Login">
+          </div>
+        </form>
+      </div>
+    </main>
+    <%- include('../_partials/footer') %>
+  </div>
+  <script src="/global.js"></script>
+  <script src="/pages/login/login.js"></script>
+</body>
+
+</html>
