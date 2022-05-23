@@ -1,5 +1,8 @@
 const { Router } = require('express');
+const { requireAuth } = require('../decorators/requireAuthentication');
 const { UserModel } = require('../models/user.model');
+
+const redirectToLogin = (req, res) => res.redirect('/login');
 
 const createViewRouter = () => {
   const router = Router();
@@ -8,15 +11,15 @@ const createViewRouter = () => {
     ? res.redirect('/user')
     : res.render('pages/landing/landing')));
 
-  router.get('/search', (req, res) => {
+  router.get('/search', requireAuth(redirectToLogin), (req, res) => {
     res.render('pages/search/search');
   });
 
-  router.get('/profile', (req, res) => {
+  router.get('/profile', requireAuth(redirectToLogin), (req, res) => {
     res.render('pages/profile/profile');
   });
 
-  router.get('/timeline', (req, res) => {
+  router.get('/timeline', requireAuth(redirectToLogin), (req, res) => {
     res.render('pages/timeline/timeline');
   });
 
@@ -28,7 +31,7 @@ const createViewRouter = () => {
     ? res.redirect('/user')
     : res.render('pages/login/login')));
 
-  router.get('/user', async (req, res) => {
+  router.get('/user', requireAuth(redirectToLogin), async (req, res) => {
     const [user] = await UserModel.find({ _id: req.session._id });
 
     res.render('pages/user-profile/user-profile', {
@@ -40,7 +43,7 @@ const createViewRouter = () => {
     });
   });
 
-  router.get('/cart', async (req, res) => {
+  router.get('/cart', requireAuth(redirectToLogin), async (req, res) => {
     const { _id } = req.session;
     const user = await UserModel.findById(_id);
     if (user && user.activeCart) {
@@ -50,7 +53,7 @@ const createViewRouter = () => {
     }
   });
 
-  router.get('/cart/:id', async (req, res) => {
+  router.get('/cart/:id', requireAuth(redirectToLogin), async (req, res) => {
     res.render('pages/cart/cart');
   });
 
