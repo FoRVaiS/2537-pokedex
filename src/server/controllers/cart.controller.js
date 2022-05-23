@@ -133,6 +133,32 @@ const removeCart = async (req, res) => {
   });
 };
 
+const removeItem = async (req, res) => {
+  const { _id } = req.session;
+  const { id: pokemonId } = req.body;
+  
+  const user = await UserModel.findById(_id);
+
+  if (user) {
+    return CartModel.updateOne({
+      cartId: user.activeCart,
+    }, {
+      $pull: {
+        pokemon: {
+          id: pokemonId,
+        },
+      },
+    });
+  }
+
+  return res.status(200).json({
+    success: false,
+    data: {
+      msg: 'Could not find an active cart',
+    },
+  });
+};
+
 const fetchCart = async (req, res) => {
   const { id } = req.params;
 
@@ -151,4 +177,4 @@ const fetchCart = async (req, res) => {
   });
 };
 
-module.exports = { addToCart, checkout, fetchCart, removeCart, updateItemQuantity };
+module.exports = { addToCart, checkout, fetchCart, removeCart, updateItemQuantity, removeItem };
