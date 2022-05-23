@@ -15,10 +15,8 @@
   <div class="container">
     <%- include('../_partials/navbar') %>
     <main>
-      <div id="panel--left" class="panel group">
-        <span class="group__item">
-          <h2 class="u-clear-header"><%= username %></h2>
-        </span>
+      <div id="panel--profile" class="panel group">
+        <h2 class="u-clear-header"><%= username %></h2>
         <div class="group">
           <span class="group__item">
             <div class="subtitle">Full Name</div>
@@ -36,18 +34,18 @@
           </span>
         </span>
       </div>
-      <div id="panel--right" class="panel">
+      <div id="panel--orders" class="panel">
+        <div class="group">
+          <h2>Past Orders</h2>
+          <div id="orders"></div>
+        </div>
+      </div>
+      <div id="panel--timeline" class="panel">
         <div class="group">
           <div class="group__item">
             <h2 class="u-clear-header">Timeline</h2>
             <div id="timeline"></div>
           </div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="group">
-          <h2>Past Orders</h2>
-          <div id="orders"></div>
         </div>
       </div>
     </main>
