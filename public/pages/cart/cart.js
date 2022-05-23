@@ -1,10 +1,17 @@
 (async () => {
-  const { query, getRequiredValueFrom } = window.pokedex;
+  const { query } = window.pokedex;
+
+  const cartId = (new URL(window.location.href)).pathname.split('/').pop();
+  const results = await query(`/api/v2/user/cart/${cartId}`);
+
+  let { pokemon } = results.data;
+  const { success, data: { isArchived } } = results;
 
   const cartRef = document.querySelector('.cart');
   const summaryRef = document.querySelector('.checkout > .checkout__summary');
 
-  const appendCartItem = ({ id, name, quantity, sprite, price }) => {
+  const appendCartItem = _pokemon => {
+    const { id, name, quantity, sprite, price } = _pokemon;
     const root = document.createElement('div');
     root.classList.add('item');
 
@@ -39,6 +46,21 @@
     qtyField.setAttribute('min', 1);
     qtyField.value = quantity;
     qtyField.type = 'number';
+    qtyField.onchange = async () => {
+      await query('/api/v2/user/cart/quantity', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id,
+          quantity: Number(qtyField.value),
+        }),
+      });
+      _pokemon.quantity = Number(qtyField.value);
+      // eslint-disable-next-line no-use-before-define
+      renderCart(pokemon);
+    };
     right.append(qtyField);
 
     const priceText = document.createElement('p');
@@ -46,6 +68,25 @@
     priceText.textContent = `$${price}`;
     right.append(priceText);
 
+    const deleteIco = document.createElement('i');
+    deleteIco.classList.add('bi');
+    deleteIco.classList.add('bi-trash');
+    deleteIco.type = 'number';
+    deleteIco.onclick = () => {
+      query('/api/v2/user/cart/remove/item', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      pokemon = pokemon.filter(_pokemon => _pokemon.id !== id);
+
+      // eslint-disable-next-line no-use-before-define
+      renderCart(pokemon);
+    };
+    right.append(deleteIco);
 
     cartRef.append(root);
   };
@@ -85,13 +126,31 @@
     summaryRef.append(root);
   };
 
-  const cartId = (new URL(window.location.href)).pathname.split('/').pop();
+  let totalPrice = 0;
+
+  const renderCart = _pokemon => {
+    totalPrice = 0;
+
+    cartRef.innerHTML = '';
+    summaryRef.innerHTML = '';
+
+    _pokemon.forEach(__pokemon => {
+      totalPrice += __pokemon.price * __pokemon.quantity;
+      appendCartItem(__pokemon);
+      appendSummaryItem(__pokemon);
+    });
+
+    const totalRef = document.querySelector('#total');
+
+    if (totalRef) totalRef.textContent = `$${totalPrice}`;
+  };
+
   const checkoutBtn = document.querySelector('input[value="Checkout"]');
 
   checkoutBtn.onclick = async e => {
     e.preventDefault();
 
-    const { success } = await query('/api/v2/user/cart/checkout', {
+    const data = await query('/api/v2/user/cart/checkout', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +160,7 @@
       }),
     });
 
-    if (success) {
+    if (data.success) {
       // TODO: Display alert indicating the cart is now archived
       // eslint-disable-next-line no-return-assign
       setTimeout(() => window.location.href = '/', 5e3);
@@ -113,7 +172,7 @@
   discardBtn.onclick = async e => {
     e.preventDefault();
 
-    const { success } = await query('/api/v2/user/cart/remove', {
+    const data = await query('/api/v2/user/cart/remove', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -123,44 +182,19 @@
       }),
     });
 
-    if (success) {
+    if (data.success) {
       // TODO: Display alert indicating the cart is now removed
       // eslint-disable-next-line no-return-assign
       setTimeout(() => window.location.href = '/', 5e3);
     }
   };
 
-  const { success, data: { pokemon, isArchived } } = await query(`/api/v2/user/cart/${cartId}`);
-
-  let totalPrice = 0;
-
   if (success) {
-    pokemon.forEach(_pokemon => {
-      totalPrice += _pokemon.price * _pokemon.quantity;
-      appendCartItem(_pokemon);
-      appendSummaryItem(_pokemon);
-    });
-
-    document.querySelectorAll('main input[type="number"]').forEach(input => {
-      input.onchange = () => query('/api/v2/user/cart/quantity', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: Number(input.getAttribute('data-id')),
-          quantity: Number(input.value),
-        }),
-      });
-    });
+    renderCart(pokemon);
 
     if (isArchived) {
       // eslint-disable-next-line no-return-assign
       Array.from(document.querySelectorAll('main input')).forEach(input => input.disabled = true);
     }
   }
-
-  const totalRef = document.querySelector('#total');
-
-  if (totalRef) totalRef.textContent = `$${totalPrice}`;
 })();
