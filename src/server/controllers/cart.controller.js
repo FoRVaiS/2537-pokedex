@@ -23,19 +23,32 @@ const addToCart = async (req, res) => {
 
     const { id, name, sprites, stats } = await PokemonModel.findOne({ id: pokemonId });
 
-    await CartModel.updateOne({
-      cartId,
-    }, {
-      $push: {
-        pokemon: {
-          id,
-          name,
-          quantity,
-          sprite: sprites.front_default,
-          price: stats[0].base_stat,
+    const cartItem = await CartModel.findOne({ cartId, 'pokemon.id': pokemonId });
+
+    if (cartItem) {
+      await CartModel.updateOne({
+        cartId,
+        'pokemon.id': pokemonId,
+      }, {
+        $inc: {
+          'pokemon.$.quantity': quantity,
         },
-      },
-    });
+      });
+    } else {
+      await CartModel.updateOne({
+        cartId,
+      }, {
+        $push: {
+          pokemon: {
+            id,
+            name,
+            quantity,
+            sprite: sprites.front_default,
+            price: stats[0].base_stat,
+          },
+        },
+      });
+    }
 
     res.status(200).json({
       success: true,
