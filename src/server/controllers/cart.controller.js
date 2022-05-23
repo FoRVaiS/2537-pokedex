@@ -19,7 +19,7 @@ const addToCart = async (req, res) => {
   const user = await UserModel.findById(_id);
 
   if (user) {
-    const cartId = user.activeCart ? user.activeCart : await createCart(_id);
+    const cartId = user.activeCart > 0 ? user.activeCart : await createCart(_id);
 
     const { id, name, sprites, stats } = await PokemonModel.findOne({ id: pokemonId });
 
