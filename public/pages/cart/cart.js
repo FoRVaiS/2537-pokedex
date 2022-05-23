@@ -126,23 +126,27 @@
     summaryRef.append(root);
   };
 
-  let totalPrice = 0;
+  let subTotalPrice = 0;
 
   const renderCart = _pokemon => {
-    totalPrice = 0;
+    subTotalPrice = 0;
 
     cartRef.innerHTML = '';
     summaryRef.innerHTML = '';
 
     _pokemon.forEach(__pokemon => {
-      totalPrice += __pokemon.price * __pokemon.quantity;
+      subTotalPrice += __pokemon.price * __pokemon.quantity;
       appendCartItem(__pokemon);
       appendSummaryItem(__pokemon);
     });
 
-    const totalRef = document.querySelector('#total');
+    const subTotalRef = document.querySelector('#sub-total');
+    const taxTotalRef = document.querySelector('#tax-total');
+    const grandTotalRef = document.querySelector('#grand-total');
 
-    if (totalRef) totalRef.textContent = `$${totalPrice}`;
+    if (subTotalRef) subTotalRef.textContent = (subTotalPrice).toFixed(2);
+    if (taxTotalRef) taxTotalRef.textContent = (subTotalPrice * 0.12).toFixed(2);
+    if (grandTotalRef) grandTotalRef.textContent = (subTotalPrice * 1.12).toFixed(2);
   };
 
   const checkoutBtn = document.querySelector('input[value="Checkout"]');
