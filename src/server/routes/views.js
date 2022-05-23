@@ -54,6 +54,10 @@ const createViewRouter = () => {
     res.render('pages/cart/cart');
   });
 
+  router.get('/404', async (req, res) => {
+    res.render('pages/errors/404');
+  });
+
   return router;
 };
 
