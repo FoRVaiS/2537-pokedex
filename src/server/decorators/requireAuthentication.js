@@ -1,6 +1,7 @@
-const requireAuth = () => (req, res, next) => {
+const requireAuth = (failCb = () => {}) => (req, res, next) => {
   if (req.session.isAuthenticated) return next();
 
+  failCb(req, res);
   return res.status(400).json({
     success: false,
     data: {
