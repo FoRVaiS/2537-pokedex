@@ -31,7 +31,7 @@ const addToCart = async (req, res) => {
           id,
           name,
           quantity,
-          sprite: sprites.other.dream_world.front_default,
+          sprite: sprites.front_default,
           price: stats[0].base_stat,
         },
       },
