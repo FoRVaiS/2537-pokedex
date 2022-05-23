@@ -190,4 +190,13 @@ const fetchCart = async (req, res) => {
   });
 };
 
-module.exports = { addToCart, checkout, fetchCart, removeCart, updateItemQuantity, removeItem };
+const fetchUserCarts = async (req, res) => {
+  const results = await CartModel.find({ userId: req.session._id });
+
+  return res.status(200).json({
+    success: true,
+    data: results || [],
+  });
+};
+
+module.exports = { addToCart, checkout, fetchCart, removeCart, updateItemQuantity, removeItem, fetchUserCarts };

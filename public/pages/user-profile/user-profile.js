@@ -8,6 +8,33 @@
     .substr(number.toString().length) + // Cut away n (# digits in number) 0s
     number.toString(); // Append number to the end
 
+  const createPreviousOrderPost = order => {
+    const root = document.createElement('div');
+    
+    const left = document.createElement('div');
+    left.classList.add('group');
+    left.classList.add('group--inline');
+    left.classList.add('item__left');
+    root.append(left);
+
+    const right = document.createElement('div');
+    right.classList.add('group');
+    right.classList.add('group--inline');
+    right.classList.add('item__right');
+    root.append(right);
+
+    const previousOrderLink = document.createElement('a');
+    previousOrderLink.href = `/cart/${Number(order.cartId)}`;
+    previousOrderLink.textContent = 'Order#';
+    left.append(previousOrderLink);
+
+    const previousOrderNumber = document.createElement('span');
+    previousOrderNumber.textContent = Number(order.cartId);
+    previousOrderLink.append(previousOrderNumber);
+
+    document.querySelector('#orders').append(root);
+  };
+
   const createViewProfileEventCard = (pokemon, views, lastUpdated) => {
     const date = new Date(lastUpdated);
     const calendarDate = `${date.getMonth()}/${date.getDate()}`;
@@ -65,6 +92,12 @@
   };
 
   const { query } = window.pokedex;
+
+  const cartsResponse = await query('/api/v2/user/carts/');
+
+  if (cartsResponse.success) {
+    cartsResponse.data.forEach(createPreviousOrderPost);
+  }
 
   const { data } = await query('/api/v2/user/timeline/event');
 
