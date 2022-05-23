@@ -1,6 +1,7 @@
 {
   "address": "ADDRESS",
   "port": "PORT",
+  "secret": "SECRET",
   "mongo": {
     "connectionString": "MONGO_CONNECTION_STRING"
   }
