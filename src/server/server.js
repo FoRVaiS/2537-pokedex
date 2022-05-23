@@ -19,7 +19,7 @@ const createExpressInstance = async () => {
 
   try {
     console.log('Connecting to Mongodb database...');
-    await mongoose.connect(config.get('mongo.connectionString'));
+    await mongoose.connect('mongodb+srv://bcit2537:fXt4yANZEAR1KkI8@cluster0.kfewp.mongodb.net/bcit2537?authMechanism=DEFAULT');
     console.log('Successfully connected to database');
 
     app.use(helmet());
