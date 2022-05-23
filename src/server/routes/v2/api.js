@@ -21,6 +21,7 @@ const createV2Router = () => {
   router.post('/user/register', userController.createUser);
   router.post('/user/login', userController.login);
   router.get('/user/logout', userController.logout);
+  router.get('/user/carts', cartController.fetchUserCarts);
   router.get('/user/cart/:id', cartController.fetchCart);
   router.post('/user/cart/quantity', cartController.updateItemQuantity);
   router.post('/user/cart/add', cartController.addToCart);
