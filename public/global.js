@@ -30,7 +30,7 @@
         method: 'GET',
       });
 
-      const { data } = await pokeNameResponse.json();
+      const data = await pokeNameResponse.json();
 
       return [data];
     };
@@ -39,7 +39,7 @@
       const pokeTypeResponse = await fetch(`http://pokeapi.co/api/v2/type/${id}`, {
         method: 'GET',
       });
-      const { data: pokeTypeData } = await pokeTypeResponse.json();
+      const pokeTypeData = await pokeTypeResponse.json();
       return (await Promise.all(pokeTypeData.pokemon.map(({ pokemon }) => self.fetchPokemonByName(pokemon.name)))).map(([result]) => result);
     };
 
@@ -47,7 +47,7 @@
       const pokeAbilityResponse = await fetch(`http://pokeapi.co/api/v2/ability/${id}`, {
         method: 'GET',
       });
-      const { data: pokeAbilityData } = await pokeAbilityResponse.json();
+      const pokeAbilityData = await pokeAbilityResponse.json();
       return (await Promise.all(pokeAbilityData.pokemon.map(({ pokemon }) => self.fetchPokemonByName(pokemon.name)))).map(([result]) => result);
     };
 
