@@ -1,0 +1,39 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  padding: 16px;
+}
+
+.panel {
+  padding: 0;
+  border-radius: 0;
+}
+.panel__title {
+  margin: 0;
+  padding: 8px 16px 16px 16px;
+  background-color: hsl(0 0% 20%);
+  color: white;
+}
+.panel__items {
+  border-collapse: collapse;
+
+  width: 100%;
+}
+.panel__item {
+  display: flex;
+
+  border: 1px solid gray;
+  border-top: 0;
+  border-inline: 0;
+  padding-block: 12px;
+  padding-inline: 16px;
+
+  gap: 8px;
+
+  align-items: center;
+}
+
+.user__spacer {
+  flex-grow: 1;
+}
