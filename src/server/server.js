@@ -11,6 +11,7 @@ const morgan = require('morgan');
 
 const { createV2Router } = require('./routes/v2/api');
 const { createViewRouter } = require('./routes/views');
+const { createProxyRouter } = require('./routes/proxy');
 const { createRootAccount } = require('./components/createRootAccount');
 
 const viewRoot = path.join(__dirname, '..', '..', 'public');
@@ -26,9 +27,10 @@ const createExpressInstance = async () => {
     app.use(helmet());
     app.use(helmet.contentSecurityPolicy({
       directives: {
-        defaultSrc: ["'self'", 'pokeapi.co'],
+        defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
         imgSrc: ['raw.githubusercontent.com'],
+        upgradeInsecureRequests: null,
       },
     }));
     app.use(morgan('combined'));
@@ -49,12 +51,13 @@ const createExpressInstance = async () => {
     const ctx = { };
 
     app.use('/api/v2/', createV2Router(ctx));
+    app.use('/proxy', createProxyRouter(ctx));
     app.use('/', createViewRouter(ctx));
 
     return app;
   } catch (e) {
     console.error(e);
-    
+
     return null;
   }
 };

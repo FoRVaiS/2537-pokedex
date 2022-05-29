@@ -26,7 +26,7 @@
     };
 
     self.fetchPokemonByName = async function fetchPokemonByName(id) {
-      const pokeNameResponse = await fetch(`http://pokeapi.co/api/v2/pokemon/${id}`, {
+      const pokeNameResponse = await fetch(`/proxy/http://pokeapi.co/api/v2/pokemon/${id}`, {
         method: 'GET',
       });
 
@@ -36,7 +36,7 @@
     };
 
     self.fetchPokemonByType = async function fetchPokemonByType(id) {
-      const pokeTypeResponse = await fetch(`http://pokeapi.co/api/v2/type/${id}`, {
+      const pokeTypeResponse = await fetch(`/proxy/http://pokeapi.co/api/v2/type/${id}`, {
         method: 'GET',
       });
       const pokeTypeData = await pokeTypeResponse.json();
@@ -44,7 +44,7 @@
     };
 
     self.fetchPokemonByAbility = async function fetchPokemonByAbility(id) {
-      const pokeAbilityResponse = await fetch(`http://pokeapi.co/api/v2/ability/${id}`, {
+      const pokeAbilityResponse = await fetch(`/proxy/http://pokeapi.co/api/v2/ability/${id}`, {
         method: 'GET',
       });
       const pokeAbilityData = await pokeAbilityResponse.json();
@@ -53,7 +53,7 @@
 
     self.fetchPokemonByRegion = async function fetchPokemonByRegion(region) {
       const { limit, offset } = pokemonRegions[region];
-      const pokeRegionResponse = await fetch(`http://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`, {
+      const pokeRegionResponse = await fetch(`/proxy/http://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`, {
         method: 'GET',
       });
 
@@ -65,14 +65,20 @@
 
     /** Returns a value of 898 because the number of pokemon return by the API is not true. */
     self.fetchTotalPokemon = async function fetchTotalPokemon() {
-      // const response = await fetch(`http://pokeapi.co/api/v2/pokemon`, { method: "GET" });
+      // const response = await fetch(`/proxy/http://pokeapi.co/api/v2/pokemon`, { method: "GET" });
       // const data: { count: number } = await response.json();
       // return data.count;
       return Promise.resolve(898);
     };
 
     self.query = async function query(endpoint, opts) {
-      const response = await fetch(endpoint, opts);
+      let url = endpoint;
+
+      if (url.match(/^https?:\/\/pokeapi.co/g)) {
+        url = `/proxy/${endpoint}`;
+      }
+
+      const response = await fetch(url, opts);
       return response.json();
     };
 
