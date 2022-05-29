@@ -1,5 +1,6 @@
+const fetch = require('node-fetch').default;
+
 const { CartModel } = require('../models/cart.model');
-const { PokemonModel } = require('../models/pokemon.model');
 const { UserModel } = require('../models/user.model');
 
 const createCart = async userId => {
@@ -21,7 +22,8 @@ const addToCart = async (req, res) => {
   if (user) {
     const cartId = user.activeCart > 0 ? user.activeCart : await createCart(_id);
 
-    const { id, name, sprites, stats } = await PokemonModel.findOne({ id: pokemonId });
+    const pokeResp = await fetch(`http://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+    const { id, name, sprites, stats } = await pokeResp.json();
 
     const cartItem = await CartModel.findOne({ cartId, 'pokemon.id': pokemonId });
 
