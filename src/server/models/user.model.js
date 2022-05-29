@@ -7,6 +7,7 @@ const UserModel = model('user', new Schema({
   lastName: String,
   age: Number,
   gender: String,
+  isRemovable: { type: Boolean, default: false },
   activeCart: { type: Number, default: -1 },
   roles: [String],
 }));
