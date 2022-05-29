@@ -11,6 +11,7 @@ const morgan = require('morgan');
 
 const { createV2Router } = require('./routes/v2/api');
 const { createViewRouter } = require('./routes/views');
+const { createRootAccount } = require('./components/createRootAccount');
 
 const viewRoot = path.join(__dirname, '..', '..', 'public');
 
@@ -42,6 +43,8 @@ const createExpressInstance = async () => {
 
     app.set('view engine', 'ejs');
     app.set('views', viewRoot);
+
+    createRootAccount();
 
     const ctx = { };
 
