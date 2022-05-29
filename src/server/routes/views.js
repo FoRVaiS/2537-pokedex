@@ -57,6 +57,10 @@ const createViewRouter = () => {
     res.render('pages/cart/cart');
   });
 
+  router.get('/dashboard', requireAuth(redirectToLogin), async (req, res) => {
+    res.render('pages/admin-dashboard/admin-dashboard');
+  });
+
   router.get('/404', async (req, res) => {
     res.render('pages/errors/404');
   });
