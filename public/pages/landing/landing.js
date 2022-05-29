@@ -6,7 +6,7 @@
   
   const verifyDreamworldSprite = pokemon => pokemon.sprites.other.dream_world.front_default !== null;
   const loadRandomDreamworldPokemon = async size => {
-    const results = await window.pokedex.query(`/api/v2/pokemon?limit=${size}&offset=${randomIntBetweenRange(0, 868 - size)}`);
+    const results = await window.pokedex.query(`http://pokeapi.co/api/v2/pokemon?limit=${size}&offset=${randomIntBetweenRange(0, 868 - size)}`);
 
     // Check that all the pokemon have sprites
     return results.data.filter(_pokemon => !verifyDreamworldSprite(_pokemon)).length === 0
