@@ -277,6 +277,8 @@ h1 {
   padding: .7rem 1.2rem 0.9rem;
   font-weight: 600;
   font-size: 1rem;
+
+  height: min-content;
 }
 .btn--primary {
   background-color: hsl(204, 88%, 60%);

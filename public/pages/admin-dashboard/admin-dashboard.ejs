@@ -14,8 +14,25 @@
 <body>
   <div class="container">
     <%- include('../_partials/navbar') %>
-    <main>
-      
+    <main class="dashboard">
+      <div class="panel panel--users">
+        <h2 class="panel__title">Registered Users</h2>
+        <table class="panel__items">
+          <tbody>
+            <% users.forEach(user => { %>
+            <tr>
+              <td class="panel__item">
+                <span>
+                  <p><%= `${user.firstName || ''} ${user.lastName || ''}` %></p>
+                  <p><%= `Roles: ${user.roles.join(', ')}` %></p>
+                </span>
+                <span class="user__spacer"></span>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
     </main>
     <%- include('../_partials/footer') %>
   </div>

@@ -58,7 +58,11 @@ const createViewRouter = () => {
   });
 
   router.get('/dashboard', requireAuth(redirectToLogin), async (req, res) => {
-    res.render('pages/admin-dashboard/admin-dashboard');
+    const users = await UserModel.find({}, { _id: 0, __v: 0 });
+
+    res.render('pages/admin-dashboard/admin-dashboard', {
+      users,
+    });
   });
 
   router.get('/404', async (req, res) => {
