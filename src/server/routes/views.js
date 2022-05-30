@@ -58,10 +58,13 @@ const createViewRouter = () => {
   });
 
   router.get('/dashboard', requireAuth(redirectToLogin), async (req, res) => {
-    const users = await UserModel.find({}, { _id: 0, __v: 0 });
+    const users = await UserModel.find({}, { __v: 0 });
+
+    const targetId = Object.fromEntries(req.originalUrl.split('?').pop().split('&').map(param => param.split('='))).id;
 
     res.render('pages/admin-dashboard/admin-dashboard', {
       users,
+      editTarget: users.filter(user => user._id.toString() === targetId).pop(),
     });
   });
 
