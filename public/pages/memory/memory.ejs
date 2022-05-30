@@ -13,8 +13,17 @@
 <body>
   <div class="container">
     <%- include('../_partials/navbar') %>
-    <main>
-
+    <main class="game">
+      <div id="panel--controls" class="panel controls"></div>
+      <div class="u-flex-spacer"></div>
+      <div id="panel--game" class="panel">
+        <template id="t-card">
+          <div class="card">
+              <img class="card__img card__front" src="" alt="Pokemon Face Card">
+              <img class="card__img card__back" src="/assets/pokeball.png" alt="Pokemon Back Card">
+          </div>
+        </template>
+      </div>
     </main>
     <%- include('../_partials/footer') %>
   </div>
