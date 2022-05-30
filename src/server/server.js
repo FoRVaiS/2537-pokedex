@@ -2,6 +2,7 @@ const path = require('path');
 
 const express = require('express');
 const sessions = require('express-session');
+const MongoStore = require('connect-mongo');
 const mongoose = require('mongoose');
 const config = require('config');
 
@@ -18,10 +19,11 @@ const viewRoot = path.join(__dirname, '..', '..', 'public');
 
 const createExpressInstance = async () => {
   const app = express();
+  const mongoConnectionString = 'mongodb+srv://bcit2537:fXt4yANZEAR1KkI8@cluster0.kfewp.mongodb.net/bcit2537?authMechanism=DEFAULT';
 
   try {
     console.log('Connecting to Mongodb database...');
-    await mongoose.connect('mongodb+srv://bcit2537:fXt4yANZEAR1KkI8@cluster0.kfewp.mongodb.net/bcit2537?authMechanism=DEFAULT');
+    await mongoose.connect(mongoConnectionString);
     console.log('Successfully connected to database');
 
     app.use(helmet());
@@ -38,6 +40,9 @@ const createExpressInstance = async () => {
       secret: process.env.NODE_ENV === 'production' ? config.get('secret') : 'devsecret',
       resave: false,
       saveUninitialized: true,
+      store: MongoStore.create({
+        mongoUrl: mongoConnectionString,
+      }),
     }));
 
     app.use(express.static(viewRoot));
