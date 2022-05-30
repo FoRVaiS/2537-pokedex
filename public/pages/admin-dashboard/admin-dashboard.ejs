@@ -15,7 +15,7 @@
   <div class="container">
     <%- include('../_partials/navbar') %>
     <main class="dashboard">
-      <div class="panel panel--users">
+      <div id="panel--users" class="panel">
         <h2 class="panel__title">Registered Users</h2>
         <table class="panel__items">
           <tbody>
@@ -27,12 +27,43 @@
                   <p><%= `Roles: ${user.roles.join(', ')}` %></p>
                 </span>
                 <span class="user__spacer"></span>
+                <button data-user-id="<%= user._id %>" class="btn btn--primary in-edit">Edit</button>
               </td>
             </tr>
             <% }) %>
           </tbody>
         </table>
       </div>
+      <% [editTarget].filter(_ => _).forEach(user => { %>
+        <div id="panel--edit-form" class="panel">
+          <h2 class="panel__title">Edit <%= user._id %></h2>
+          <form class="form">
+            <div class="form__group form__group--inline">
+              <span class="form__item">
+                <label class="form__label" for="in-username">Username</label>
+                <input id="in-username" class="form__field" type="text" name="username" value="<%= user.username %>">
+              </span>
+              <div class="form__item">
+                <label for="in-password" class="form__label">Password</label>
+                <input id="in-password" class="form__field" type="password" name="password" value="<%= user.password %>">
+              </div>
+            </div>
+            <div class="form__group form__group--inline">
+              <div class="form__item">
+                <label for="in-first-name" class="form__label">First Name</label>
+                <input id="in-first-name" class="form__field" type="text" name="first-name" value="<%= user.firstName %>">
+              </div>
+              <div class="form__item">
+                <label for="in-last-name" class="form__label">Last Name</label>
+                <input id="in-last-name" class="form__field" type="text" name="last-name" value="<%= user.lastName %>">
+              </div>
+            </div>
+            <div class="form__item">
+              <input id="in-edit-submit" class="form__button btn btn--primary" type="submit" value="Submit">
+            </div>
+          </form>
+        </div>
+      <% }) %>
     </main>
     <%- include('../_partials/footer') %>
   </div>
