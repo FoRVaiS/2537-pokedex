@@ -68,6 +68,10 @@ const createViewRouter = () => {
     });
   });
 
+  router.get('/memory', requireAuth(redirectToLogin), async (req, res) => {
+    res.render('pages/memory/memory');
+  });
+
   router.get('/404', async (req, res) => {
     res.render('pages/errors/404');
   });

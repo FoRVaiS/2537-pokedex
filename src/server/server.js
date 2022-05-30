@@ -13,6 +13,8 @@ const morgan = require('morgan');
 const { createV2Router } = require('./routes/v2/api');
 const { createViewRouter } = require('./routes/views');
 const { createProxyRouter } = require('./routes/proxy');
+const { createGameRouter } = require('./routes/game');
+
 const { createRootAccount } = require('./components/createRootAccount');
 
 const viewRoot = path.join(__dirname, '..', '..', 'public');
@@ -31,7 +33,7 @@ const createExpressInstance = async () => {
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-        imgSrc: ['raw.githubusercontent.com'],
+        imgSrc: ["'self'", 'raw.githubusercontent.com'],
         upgradeInsecureRequests: null,
       },
     }));
@@ -57,6 +59,7 @@ const createExpressInstance = async () => {
 
     app.use('/api/v2/', createV2Router(ctx));
     app.use('/proxy', createProxyRouter(ctx));
+    app.use('/game', createGameRouter(ctx));
     app.use('/', createViewRouter(ctx));
 
     return app;
