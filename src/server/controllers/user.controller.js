@@ -29,6 +29,26 @@ const createUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { _id } = req.body;
+
+  try {
+    await UserModel.findByIdAndDelete(_id);
+  } catch (e) {
+    return res.status(500).json({
+      success: false,
+      data: {
+        msg: e.message,
+      },
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    data: null,
+  });
+}
+
 const editUser = async (req, res) => {
   const { _id, username, password, firstName, lastName } = req.body;
 
@@ -43,7 +63,7 @@ const editUser = async (req, res) => {
     });
   }
 
-  return res.status(500).json({
+  return res.status(200).json({
     success: true,
     data: null,
   });
@@ -82,4 +102,4 @@ const logout = async (req, res) => {
   });
 };
 
-module.exports = { createUser, editUser, login, logout };
+module.exports = { createUser, editUser, deleteUser, login, logout };
