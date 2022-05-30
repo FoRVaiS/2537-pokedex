@@ -26,10 +26,27 @@
     if (success) window.location.href = '/dashboard';
   };
 
+  const handleDelete = async () => {
+    const { success } = await query('/api/v2/user/delete', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ _id }),
+    });
+
+    if (success) window.location.href = '/dashboard';
+  };
+
   const userEditBtns = document.querySelectorAll('.in-edit');
   userEditBtns.forEach(editBtn => {
     _id = editBtn.getAttribute('data-user-id');
     editBtn.addEventListener('click', handleEdit.bind(null, editBtn.getAttribute('data-user-id')));
+  });
+
+  const userDelBtns = document.querySelectorAll('.in-delete');
+  userDelBtns.forEach(delBtn => {
+    delBtn.addEventListener('click', handleDelete.bind(null));
   });
 
   const formSubmitRef = document.querySelector('#in-edit-submit');
