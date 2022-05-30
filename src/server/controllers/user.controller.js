@@ -29,6 +29,26 @@ const createUser = async (req, res) => {
   }
 };
 
+const editUser = async (req, res) => {
+  const { _id, username, password, firstName, lastName } = req.body;
+
+  try {
+    await UserModel.updateOne({ _id }, { username, password, firstName, lastName });
+  } catch (e) {
+    return res.status(500).json({
+      success: false,
+      data: {
+        msg: e.message,
+      },
+    });
+  }
+
+  return res.status(500).json({
+    success: true,
+    data: null,
+  });
+};
+
 const login = async (req, res) => {
   const { username, password } = req.body;
 
@@ -62,4 +82,4 @@ const logout = async (req, res) => {
   });
 };
 
-module.exports = { createUser, login, logout };
+module.exports = { createUser, editUser, login, logout };
